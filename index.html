@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="とある東京の役者です">
+<meta name="keywords" content="芸能/役者/俳優/モデル">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>とある東京の役者</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+/* オープニング */
+ #opening-mask {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: #ffffff; 
+    z-index: 99999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: visibility 0.5s;
+}
+
+/* アニメーション設定 */
+.shut-down {
+    animation: tv-off 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+@keyframes tv-off {
+    0% { transform: scale(1, 1); filter: brightness(1); }
+    40% { transform: scale(1, 0.005); filter: brightness(10); } 
+    100% { transform: scale(0, 0); filter: brightness(0); } 
+}
+
+
+.opening-text {
+    font-size: 50px;
+    font-family: 'Yu Mincho', serif;
+    animation: fadeInUp 1.2s ease-out forwards;
+    color: #555555;
+}
+@keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+
+
+body.no-scroll {
+    overflow: hidden;
+}
+
+/* 全体 */
+body {
+    font-family: "Noto Sans JP", "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    padding: 0;
+    background-color: #fcfcfc;
+    width: 100%;
+}
+
+.full-width {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.content-wrapper {
+    width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+.flex-profile-container {
+    display: flex;
+    width: 100%;
+    gap: 15px;
+    box-sizing: border-box;
+}
+
+.flex-left-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.flex-right-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.info-box {
+    width: 100%;
+    background: #fff;
+    box-sizing: border-box;
+    border-collapse: collapse;
+}
+
+.info-box td {
+    padding: 10px;
+    color: #786e68;
+}
+
+.profile-title-ribbon {
+    background-color: #e8ddd1;
+    padding: 6px 10px;
+    text-align: center;
+    border-radius: 10px;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.profile-text-center {
+    text-align: center;
+    word-break: break-all;
+    overflow-wrap: break-word;
+}
+
+/* table */
+.sample {
+    width: 100%;
+    background: #f5f5f5;
+    border-collapse: collapse;
+    border-spacing: 0px;
+}
+
+.sample td {
+    padding: 0px;
+    font-size: 20px;
+    color: #786e68;
+}
+
+.sample td > div {
+    padding: 10px;
+}
+
+.sample.bg-white {
+    background: #fff;
+    font-size: 18px;
+}
+
+
+
+
+/* ボタン */
+.button {
+    padding: 15px 50px;
+    background: linear-gradient(#1e2a44,rgb(142, 147, 168));
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin: 10px 0; 
+    color: white;
+    border-radius: 0px;
+    border: none;
+    transition: 1.0s;
+    cursor: pointer;
+}
+.button:hover {
+    color: rgb(211, 211, 211);
+    background: #555555;
+}
+
+
+
+/* スマホ仕様 */
+@media screen and (max-width: 900px) {
+    .flex-right-content td, .flex-right-content span {
+        font-size: 20px !important;
+    }
+    .button {
+        padding: 10px 30px !important; 
+        font-size: 15px !important; 
+        margin: 0px 0 !important;
+    }
+    td img {
+        width: 100% !important; /* スマホの時は35%にする */
+    }
+
+}
+</style>
+</head>
+
+<body>
+
+<div id="opening-mask"><div class="opening-text">とある東京の役者</div></div>
+
+
+
+<!--header-->
+<div id="header" class="full-width"align="center" valign="middle">
+<img src="images/icon.png" style="width: 50px; height: auto; display: block;">
+<span style="color:#555555; font-size:15px; font-family:'Yu Mincho';">
+とある東京の役者
+</span>
+</div>
+
+
+
+<!--メイン動画-->
+<div class="full-width">
+<video autoplay muted loop playsinline controls style="width: 100%; height: auto; display: block; margin-bottom: 20px;">
+<source src="videos/cm.mp4" type="video/mp4">
+</video>
+</div>
+
+
+
+<!--SNS-->
+<div class="full-width">
+<table width="100%" height="60" bgcolor="white" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td align="center" valign="middle">
+<span style="color:#555555; font-size:30px; font-family:'Yu Mincho';">
+Various SNS</span>
+</td>
+</tr>
+</table>
+</div>
+<div class="full-width">
+<table width="100%" border="0" align="center" bgcolor="white" cellpadding="10" cellspacing="0">
+<tr> 
+<td align="center" valign="middle">
+<a href="アンノーン"style="text-decoration: none; "target="_blank" rel="noopener noreferrer">
+    <img src="images/instagram.png" alt="Instagram" style="width: 50px; height: 50px; object-fit: cover; cursor: pointer; transition: all 0.3s ease; margin: 0 5px;" onmouseover="this.style.opacity='0.7'; this.style.transform='scale(1.1)';" onmouseout="this.style.opacity='1.0'; this.style.transform='scale(1.0)';" />
+</a>
+<a href="アンノーン"style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
+    <img src="images/tiktok.png" alt="TikTok" style="width: 50px; height: 50px; object-fit: cover; cursor: pointer; transition: all 0.3s ease; margin: 0 5px;" onmouseover="this.style.opacity='0.7'; this.style.transform='scale(1.1)';" onmouseout="this.style.opacity='1.0'; this.style.transform='scale(1.0)';" />
+</a>
+<a href="https://x.com/infotokyoactor"style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
+    <img src="images/x.png" alt="エックス" style="width: 50px; height: 50px; object-fit: cover; cursor: pointer; transition: all 0.3s ease; margin: 0 5px;" onmouseover="this.style.opacity='0.7'; this.style.transform='scale(1.1)';" onmouseout="this.style.opacity='1.0'; this.style.transform='scale(1.0)';" />
+</a>
+</td>
+</tr>
+</table>
+</div>
+<br>
+
+
+
+<!--メンバー紹介-->
+<div class="full-width">
+<img src="images/member.jpg" style="width: 100%; height: auto; display: block;">
+</div>
+
+
+
+<!--メンバー1-->
+<div class="full-width">
+<table width="70%" border="0" align="center" bgcolor="white" cellpadding="40" cellspacing="0">
+<tr> 
+<td align="center" valign="middle" style="display: flex; align-items: center; justify-content: center; gap: 20px;">
+<img src="images/higuchi.jpg" style="width: 60%; height: auto;">
+
+<div style="text-align: center; flex: 0 0 auto;">
+<a href="member/higuchi/index.html" target="_blank" class="button" style="margin-left: 50px;"><b>＞＞PROFILE</b></a>
+</div>
+</td>
+</tr>
+</table>
+</div>
+
+<!--メンバー2-->
+<div class="full-width">
+<table width="70%" border="0" align="center" bgcolor="white" cellpadding="40" cellspacing="0">
+<tr> 
+<td align="center" valign="middle" style="display: flex; align-items: center; justify-content: center; gap: 20px;">
+<img src="images/tachibana.jpg" style="width: 60%; height: auto;">
+<div style="text-align: center; flex: 0 0 auto;">
+<a href="membertachibana/index.html" target="_blank" class="button" style="margin-left: 50px;"><b>＞＞PROFILE</b></a>
+</div>
+</td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--メール送信-->
+<div style="text-align: center;">
+<a href="mailto:info.tokyoactor@gmail.com" target="_blank" class="button"><b>メールを送る</b></a>
+<hr style="border: none; border-top: 1px solid #ddd; width: 60%; margin: 20px auto;">
+<p style="font-size: 12px; color: #666; margin-top: 5px;">
+またはアドレスをコピー<br><b>info.tokyoactor@gmail.com</b>
+</p>
+<button onclick="copyMailAddress()" class="button"><b>アドレスをコピー</b></button>
+</div>
+
+
+
+<!--上に戻る-->
+<div align="right" style="margin: 20px 10px;">
+<a href="#header" style="text-decoration: none; color:#2b2b2b;">ページ上に戻る ▲</a>
+</div>
+
+
+
+<!--▼footer▼-->
+<footer class="full-width">
+<div style="background: #dcdcdc; padding: 15px; text-align: center;">
+    <span style="color:white; font-size:14px;">©とある東京の役者</span>
+</div>
+</footer>
+<!--▲footer▲-->
+
+
+
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+    document.body.classList.add('no-scroll');
+
+
+    setTimeout(() => {
+        const mask = document.getElementById('opening-mask');
+        if (mask) {
+            mask.classList.add('shut-down');
+            setTimeout(() => {
+                mask.style.display = 'none';
+                document.body.classList.remove('no-scroll');
+            }, 600);
+        }
+    }, 1800); 
+});
+
+
+
+function movePopSlide(direction) {
+  popIdx += direction;
+  if (popIdx >= totalSlides) popIdx = 0;
+  if (popIdx < 0) popIdx = totalSlides - 1;
+  
+  popupSlider.style.transform = `translateX(-${popIdx * 33.333}%)`;
+}
+
+function copyMailAddress() {
+  const mail = "info.tokyoactor@gmail.com";
+  navigator.clipboard.writeText(mail).then(() => {
+    alert("メールアドレスをコピーしました！\n" + mail);
+  }).catch(err => {
+    alert("コピーに失敗しました。お手数ですが手動でコピーしてください。");
+  });
+}
+</script>
+
+</body>
+</html>
