@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="●●●ページ詳細●●●">
+<meta name="keywords" content="●●●検索ワード●●●">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>とある東京の役者</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+/* オープニング */
+#opening-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fcfcfc;
+    z-index: 99999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    transition: opacity 0.8s ease-in-out, visibility 0.8s;
+}
+
+.opening-text {
+    font-size: clamp(32px, 6vw, 60px);
+    color: #2b2b2b;
+    font-family: 'Yu Mincho', serif;
+    letter-spacing: 0.1em;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInUp 1.2s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+body.no-scroll {
+    overflow: hidden;
+}
+
+/* 全体 */
+body {
+    font-family: "Noto Sans JP", "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    padding: 0;
+    background-color: #fcfcfc;
+    width: 100%;
+}
+
+.full-width {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.content-wrapper {
+    width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+.flex-profile-container {
+    display: flex;
+    width: 100%;
+    gap: 15px;
+    box-sizing: border-box;
+}
+
+.flex-left-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.flex-right-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.info-box {
+    width: 100%;
+    background: #fff;
+    box-sizing: border-box;
+    border-collapse: collapse;
+}
+
+.info-box td {
+    padding: 10px;
+    color: #786e68;
+}
+
+.profile-title-ribbon {
+    background-color: #e8ddd1;
+    padding: 6px 10px;
+    text-align: center;
+    border-radius: 10px;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.profile-text-center {
+    text-align: center;
+    word-break: break-all;
+    overflow-wrap: break-word;
+}
+
+/* table */
+.sample {
+    width: 100%;
+    background: #f5f5f5;
+    border-collapse: collapse;
+    border-spacing: 0px;
+}
+
+.sample td {
+    padding: 0px;
+    font-size: 20px;
+    color: #786e68;
+}
+
+.sample td > div {
+    padding: 10px;
+}
+
+.sample.bg-white {
+    background: #fff;
+    font-size: 18px;
+}
+
+
+
+
+
+/* スマホ仕様 */
+@media screen and (max-width: 900px) {
+    .pop-arrow-prev { left: 10px !important; background: rgba(0,0,0,0.4) !important; }
+    .pop-arrow-next { right: 10px !important; background: rgba(0,0,0,0.4) !important; }
+
+    .flex-profile-container {
+        flex-direction: column !important;
+        gap: 20px !important; 
+    }
+
+    .flex-left-content,
+    .flex-right-content {
+        width: 100% !important;
+        flex: none !important;
+    }
+
+    .flex-right-content td,
+    .flex-right-content span,
+    .flex-right-content div {
+        font-size: 14px !important; 
+        line-height: 1.5 !important;
+    }
+
+    .flex-right-content .sample span[style*="font-size: 32px"] {
+        font-size: 26px !important;
+    }
+    .flex-right-content .sample span[style*="font-size: 14px"] {
+        font-size: 12px !important;
+    }
+    .flex-right-content .sample span[style*="font-size: 20px"] {
+        font-size: 16px !important;
+    }
+
+    .profile-title-ribbon {
+        width: 60% !important;
+        padding: 4px 0 !important;
+    }
+    .profile-title-ribbon span {
+        font-size: 15px !important;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .flex-right-content td, .flex-right-content span {
+        font-size: 10px !important;
+    }
+}
+
+.button {
+    padding: 10px 30px;
+    background: linear-gradient(#a89dac,#595857);
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    margin: 10px 0; 
+    color: white;
+    border-radius: 15px;
+    border: none;
+    transition: 1.0s;
+    cursor: pointer;
+}
+.button:hover {
+    color: white;
+    background: #ec6800;
+}
+</style>
+</head>
+
+<body>
+
+<div id="opening-mask"><div class="opening-text">とある東京の役者</div></div>
+
+
+
+<!--header-->
+<div id="header" class="full-width">
+<table width="100%" height="60" bgcolor="white" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td align="center" valign="middle">
+    <img src="images/icon.png" style="width: 50px; height: auto; display: block;">
+<span style="color:#555555; font-size:15px; font-family:'Yu Mincho';">
+とある東京の役者
+</span>
+</td>
+</tr>
+</table>
+</div>
+
+
+
+<!--メイン動画-->
+<div class="full-width">
+<video autoplay muted loop playsinline controls style="width: 100%; height: auto; display: block; margin-bottom: 20px;">
+<source src="videos/cm.mp4" type="video/mp4">
+</video>
+</div>
+
+
+
+<!--SNS-->
+<div id="header" class="full-width">
+<table width="100%" height="60" bgcolor="white" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td align="center" valign="middle">
+<span style="color:#555555; font-size:30px; font-family:'Yu Mincho';">
+Various SNS</span>
+</td>
+</tr>
+</table>
+</div>
+<div class="full-width">
+<table width="100%" border="0" align="center" bgcolor="white" cellpadding="10" cellspacing="0">
+<tr> 
+<td align="center" valign="middle">
+<a href="アンノーン"style="text-decoration: none; "target="_blank" rel="noopener noreferrer">
+    <img src="images/instagram.png" alt="Instagram" style="width: 50px; height: 50px; object-fit: cover; cursor: pointer; transition: all 0.3s ease; margin: 0 5px;" onmouseover="this.style.opacity='0.7'; this.style.transform='scale(1.1)';" onmouseout="this.style.opacity='1.0'; this.style.transform='scale(1.0)';" />
+</a>
+<a href="アンノーン"style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
+    <img src="images/tiktok.png" alt="TikTok" style="width: 50px; height: 50px; object-fit: cover; cursor: pointer; transition: all 0.3s ease; margin: 0 5px;" onmouseover="this.style.opacity='0.7'; this.style.transform='scale(1.1)';" onmouseout="this.style.opacity='1.0'; this.style.transform='scale(1.0)';" />
+</a>
+<a href="https://x.com/infotokyoactor"style="text-decoration: none;" target="_blank" rel="noopener noreferrer">
+    <img src="images/x.png" alt="エックス" style="width: 50px; height: 50px; object-fit: cover; cursor: pointer; transition: all 0.3s ease; margin: 0 5px;" onmouseover="this.style.opacity='0.7'; this.style.transform='scale(1.1)';" onmouseout="this.style.opacity='1.0'; this.style.transform='scale(1.0)';" />
+</a>
+</td>
+</tr>
+</table>
+</div>
+<br>
+
+
+<!--メンバー紹介-->
+<div class="full-width">
+<img src="images/member.jpg" style="width: 100%; height: auto; display: block;">
+</div>
+
+
+
+<!--メンバー1-->
+<div class="full-width">
+<table width="70%" border="0" align="center" bgcolor="white" cellpadding="40" cellspacing="0">
+<tr> 
+<td align="center" valign="middle" style="text-align: center;">
+<img src="images/higuchi.jpg" style="width: 45%; height: auto;">
+<div style="text-align: center;">
+<a href="mailto:saharahirotomo@gmail.com" target="_blank" class="button"><b>メールを送る</b></a>
+</div>
+</td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+
+
+
+
+<!--動画-->
+<div class="full-width" style="display: flex; flex-wrap: wrap; gap: 0px; margin-bottom: 40px; padding: 0px; box-sizing: border-box;">
+<div style="flex: 1 1 300px;">
+<video autoplay muted loop playsinline controls style="width: 100%; height: auto; display: block; margin-bottom: 0px;">
+<source src="videos/オオハシ.mp4" type="video/mp4">
+</video>
+<video autoplay muted loop playsinline controls style="width: 100%; height: auto; display: block;">
+<source src="videos/オオハシ2.mp4" type="video/mp4">
+</video>
+</div>
+
+<div style="flex: 1 1 300px; box-sizing: border-box; background-color: #e8ddd1; padding: 15px;">
+<table class="sample" style="width: 100%; margin-bottom: 15px;">
+<tr style="background-color: white;">
+<td align="center" style="padding: 10px;"><span style="font-size: 20px; font-family: 'Yu Mincho'; font-weight: bold;">出演歴</span></td>
+</tr>
+</table>
+
+
+
+<!--経歴-->
+<div style="background-color: #e8c59c; width: 200px; height: 50px; display: flex; align-items: center; padding-left: 10px; box-sizing: border-box; margin-bottom: 5px; color: white;">
+<b>
+<span style="font-size: 20px; font-family: 'Yu Mincho';">ドラマ</span>
+<span style="font-size: 14px; font-family: 'Yu Mincho'; margin-left: 5px;">DRAMA</span>
+</b>
+</div>
+
+<table class="sample" style="width: 100%; margin-bottom: 15px; background: transparent;">
+    <tr><td style="font-size: 14px; font-weight: bold; padding-top: 5px;">2026</td></tr>
+    <tr><td style="font-size: 16px; padding-bottom: 5px;">（主演）東京ドイツ村オリジナルドラマ「夕焼けに君を想う」</td></tr>
+    <tr><td style="font-size: 14px; font-weight: bold; padding-top: 5px;">2025</td></tr>
+    <tr><td style="font-size: 16px;">PUNKSATRIANGLE 生徒役（レギュラー）</td></tr>
+    <tr><td style="font-size: 16px;">中京テレビ「海老だって鯛が釣りたい」</td></tr>
+    <tr><td style="font-size: 16px;">ABCテレビドラマ「グラばらっ！」</td></tr>
+    <tr><td style="font-size: 16px; padding-bottom: 5px;">千葉テレビ「歩みのサギ」</td></tr>
+    <tr><td style="font-size: 14px; font-weight: bold; padding-top: 5px;">2024</td></tr>
+    <tr><td style="font-size: 16px; padding-bottom: 5px;">カンテレ×DMM「デスゲームで待ってる」</td></tr>
+</table>
+
+<div style="background-color: #e8c59c; width: 230px; height: 50px; display: flex; align-items: center; padding-left: 10px; box-sizing: border-box; margin-bottom: 5px; color: white;">
+<b>
+<span style="font-size: 20px; font-family: 'Yu Mincho';">広告</span>
+<span style="font-size: 14px; font-family: 'Yu Mincho'; margin-left: 5px;">COMMERCIAL</span>
+</b>
+</div>
+
+<table class="sample" style="width: 100%; margin-bottom: 15px; background: transparent;">
+<tr><td style="font-size: 16px; padding: 5px 0;">2025 おかねのいろは WEB動画</td></tr>
+</table>
+
+<div style="background-color: #e8c59c; width: 140px; height: 50px; display: flex; align-items: center; padding-left: 10px; box-sizing: border-box; margin-bottom: 5px; color: white;">
+<b>
+<span style="font-size: 20px; font-family: 'Yu Mincho';">OTHER</span>
+</b>
+</div>
+
+<table class="sample" style="width: 100%; margin-bottom: 15px; background: transparent;">
+<tr><td style="font-size: 16px; padding: 5px 0;">2025 ホラーちゃんねる「呪詛で呪われた友達」</td></tr>
+</table>
+
+<div style="background-color: #e8c59c; width: 230px; height: 50px; display: flex; align-items: center; padding-left: 10px; box-sizing: border-box; margin-bottom: 5px; color: white;">
+<b>
+<span style="font-size: 20px; font-family: 'Yu Mincho';">MUSIC VIDEO</span>
+</b>
+</div>
+
+<table class="sample" style="width: 100%; background: transparent;">
+<tr><td style="font-size: 16px; padding: 5px 0;">2025 B&amp;「僕より君へ」</td></tr>
+</table>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<!--メール送信-->
+<div style="text-align: center;">
+<a href="mailto:saharahirotomo@gmail.com" target="_blank" class="button"><b>メールを送る</b></a>
+<hr style="border: none; border-top: 1px solid #ddd; width: 60%; margin: 20px auto;">
+<p style="font-size: 12px; color: #666; margin-top: 5px;">
+またはアドレスをコピー<br><b>info.tokyoactor@gmail.com</b>
+</p>
+<button onclick="copyMailAddress()" class="button"><b>アドレスをコピー</b></button>
+</div>
+
+
+
+<!--上に戻る-->
+<div align="right" style="margin: 20px 10px;">
+<a href="#header" style="text-decoration: none; color:#2b2b2b;">ページ上に戻る ▲</a>
+</div>
+
+
+
+<!--▼footer▼-->
+<footer class="full-width">
+<div style="background: #dcdcdc; padding: 15px; text-align: center;">
+    <span style="color:white; font-size:12px;">©AYANO portfolio</span>
+</div>
+</footer>
+<!--▲footer▲-->
+
+
+
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+    document.body.classList.add('no-scroll');
+
+    // 1.8秒（1800ミリ秒）後にオープニング画面をフェードアウトさせる
+    setTimeout(() => {
+        const mask = document.getElementById('opening-mask');
+        mask.style.opacity = '0';
+        mask.style.visibility = 'hidden'; // クリックの邪魔にならないように完全に隠す
+        
+        // スクロール制限を解除
+        document.body.classList.remove('no-scroll');
+    }, 1800); 
+});
+
+let currentIdx = 0;
+let popIdx = 0;
+const totalSlides = 3;
+
+const mainSlider = document.getElementById('mainSlider');
+const popupSlider = document.getElementById('popupSlider');
+const dots = document.querySelectorAll('.dot');
+const trigger = document.getElementById('trigger1');
+
+let slideTimer = setInterval(() => {
+  currentIdx++;
+  if (currentIdx >= totalSlides) currentIdx = 0;
+  
+  mainSlider.style.transform = `translateX(-${currentIdx * 33.333}%)`;
+  
+  dots.forEach((dot, i) => {
+    dot.style.opacity = i === currentIdx ? '1' : '0.4';
+  });
+}, 4000);
+
+trigger.addEventListener('change', () => {
+  if(trigger.checked) {
+    popIdx = currentIdx;
+    popupSlider.style.transform = `translateX(-${popIdx * 33.333}%)`;
+  }
+});
+
+function movePopSlide(direction) {
+  popIdx += direction;
+  if (popIdx >= totalSlides) popIdx = 0;
+  if (popIdx < 0) popIdx = totalSlides - 1;
+  
+  popupSlider.style.transform = `translateX(-${popIdx * 33.333}%)`;
+}
+
+function copyMailAddress() {
+  const mail = "info.tokyoactor@gmail.com";
+  navigator.clipboard.writeText(mail).then(() => {
+    alert("メールアドレスをコピーしました！\n" + mail);
+  }).catch(err => {
+    alert("コピーに失敗しました。お手数ですが手動でコピーしてください。");
+  });
+}
+</script>
+
+</body>
+</html>
