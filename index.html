@@ -520,7 +520,7 @@ Various SNS
 <!-- スライド1 -->
 <div class="swiper-slide">
     <input id="swiper1" type="checkbox" style="display:none;">
-    <button class="mute-btn" onclick="event.preventDefault(); toggleMute(this);"><img src="../../common/images/icon/spkoff.png" alt="スピーカー" style="width: 20px; height: auto;"></button>
+    <button class="mute-btn" onclick="event.preventDefault(); toggleMute(this);"><img src="common/images/icon/spkoff.png" alt="スピーカー" style="width: 20px; height: auto;"></button>
     <label for="swiper1" style="cursor:pointer; display:block; width:100%; height:100%;">
         <video src="common/videos/l2.mp4" autoplay muted loop playsinline></video>
     </label>
@@ -529,7 +529,7 @@ Various SNS
 <!-- スライド2 -->
 <div class="swiper-slide">
     <input id="swiper2" type="checkbox" style="display:none;">
-    <button class="mute-btn" onclick="event.preventDefault(); toggleMute(this);"><img src="../../common/images/icon/spkoff.png" alt="スピーカー" style="width: 20px; height: auto;"></button>
+    <button class="mute-btn" onclick="event.preventDefault(); toggleMute(this);"><img src="common/images/icon/spkoff.png" alt="スピーカー" style="width: 20px; height: auto;"></button>
     <label for="swiper2" style="cursor:pointer; display:block; width:100%; height:100%;">
         <video src="common/videos/l1.mp4" autoplay muted loop playsinline></video>
     </label>
@@ -538,7 +538,7 @@ Various SNS
 <!-- スライド3 (動画) -->
 <div class="swiper-slide">
     <input id="swiper3" type="checkbox" style="display:none;">
-    <button class="mute-btn" onclick="event.preventDefault(); toggleMute(this);"><img src="../../common/images/icon/spkoff.png" alt="スピーカー" style="width: 20px; height: auto;"></button>
+    <button class="mute-btn" onclick="event.preventDefault(); toggleMute(this);"><img src="common/images/icon/spkoff.png" alt="スピーカー" style="width: 20px; height: auto;"></button>
     <label for="swiper3" style="cursor:pointer; display:block; width:100%; height:100%;">
         <video src="common/videos/c.mp4" autoplay muted loop playsinline></video>
     </label>
@@ -547,7 +547,7 @@ Various SNS
 <!-- スライド4 -->
 <div class="swiper-slide">
     <input id="swiper4" type="checkbox" style="display:none;">
-    <button class="mute-btn" onclick="event.preventDefault(); toggleMute(this);"><img src="../../common/images/icon/spkoff.png" alt="スピーカー" style="width: 20px; height: auto;"></button>
+    <button class="mute-btn" onclick="event.preventDefault(); toggleMute(this);"><img src="common/images/icon/spkoff.png" alt="スピーカー" style="width: 20px; height: auto;"></button>
     <label for="swiper4" style="cursor:pointer; display:block; width:100%; height:100%;">
         <video src="common/videos/r1.mp4" autoplay muted loop playsinline></video>
     </label>
@@ -556,7 +556,7 @@ Various SNS
 <!-- スライド5 -->
 <div class="swiper-slide">
     <input id="swiper5" type="checkbox" style="display:none;">
-    <button class="mute-btn" onclick="event.preventDefault(); toggleMute(this);"><img src="../../common/images/icon/spkoff.png" alt="スピーカー" style="width: 20px; height: auto;"></button>
+    <button class="mute-btn" onclick="event.preventDefault(); toggleMute(this);"><img src="common/images/icon/spkoff.png" alt="スピーカー" style="width: 20px; height: auto;"></button>
     <label for="swiper5" style="cursor:pointer; display:block; width:100%; height:100%;">
         <video src="common/videos/r2.mp4" autoplay muted loop playsinline></video>
     </label>
@@ -645,7 +645,7 @@ function toggleMute(btn) {
     if (v) {
         v.muted = !v.muted;
         if (img) {
-            img.src = v.muted ? '../../common/images/icon/spkoff.png' : '../../common/images/icon/spkon.png';
+            img.src = v.muted ? 'common/images/icon/spkoff.png' : 'common/images/icon/spkon.png';
         }
     }
 }
@@ -684,7 +684,7 @@ document.querySelectorAll('.grid-item input, .swiper-slide input').forEach(input
                 const muteBtn = item.querySelector('.mute-btn');
                 if (muteBtn) {
                     const img = muteBtn.querySelector('img');
-                    if (img) img.src = '../../common/images/icon/spkoff.png';
+                    if (img) img.src = 'common/images/icon/spkoff.png';
                 }
             }
         }
@@ -776,7 +776,7 @@ const mainSwiper = new Swiper(".mainSwiper", {
                 v.pause();
                 v.currentTime = 0;
                 const btn = v.closest('.swiper-slide').querySelector('.mute-btn img');
-                if (btn) btn.src = '../../common/images/icon/spkoff.png';
+                if (btn) btn.src = 'common/images/icon/spkoff.png';
             });
             const activeSlide = this.slides[this.activeIndex];
             const activeVideo = activeSlide.querySelector('video');
