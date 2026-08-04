@@ -16,23 +16,16 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-
-
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap');
 
 /* 全体 */
 body, table, td, h1, span, div, p {
     font-family: 'Noto Serif JP', "Yu Mincho", "YuMincho", serif !important;
 }
 
-html,
-body {
+html, body {
     overflow-x: hidden;
-}
-
-body {
-    width: 100%;
     margin: 0;
     padding: 0;
     background-color: #ffffff;
@@ -44,7 +37,6 @@ body {
     box-sizing: border-box;
     font-size: 25px;
 }
-
 
 /* オープニング */
 #opening-mask {
@@ -76,65 +68,146 @@ body {
 }
 
 @keyframes fadeInUp {
-    0% {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
 }
 
 body.no-scroll {
     overflow: hidden;
 }
 
-@media screen and (max-width: 360px) {
-    .full-width[style*="display: flex"] {
-        flex-direction: column !important;
-    }
+/* --- 3Dステージ & キューブエリア --- */
+.scene {
+    width: 220px;
+    height: 220px;
+    margin: 40px auto 50px auto;
+    perspective: 800px;
+    user-select: none;
+    cursor: grab;
+    touch-action: none;
+}
+
+.scene:active {
+    cursor: grabbing;
+}
+
+.cube {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+}
+
+.face {
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    box-sizing: border-box;
+    background: #111;
+    cursor: pointer;
+    backface-visibility: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.face img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    pointer-events: none;
+}
+
+.front  { transform: rotateY(0deg) translateZ(110px); }
+.back   { transform: rotateY(180deg) translateZ(110px); }
+.right  { transform: rotateY(90deg) translateZ(110px); }
+.left   { transform: rotateY(-90deg) translateZ(110px); }
+.top    { transform: rotateX(90deg) translateZ(110px); }
+.bottom { transform: rotateX(-90deg) translateZ(110px); }
+
+/* キューブ用モーダル */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal.show {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-content {
+    max-width: 90%;
+    max-height: 85vh;
+    border-radius: 8px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+    object-fit: contain;
+}
+
+.modal-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: #ffffff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.3s;
+}
+
+.modal-close:hover {
+    color: #fa7a18;
 }
 
 /* スマホ仕様 */
 @media (max-width: 767px) {
-    .title {
-      font-size: 20px!important;
-      display: block!important;
-    }
-    .maintitle {
-      font-size: 10px!important;
-      display: block!important;
-    }
-    .grid-container {
-        grid-template-columns: 1fr; 
-    }
-
-    .grid-overlay .close_btn {
-    top: 20px !important;
-    right: 20px !important;
-    }
+    .title { font-size: 20px!important; display: block!important; }
+    .maintitle { font-size: 10px!important; display: block!important; }
+    
     .button {
-    font-size: 12px !important;
-    font-family: "游明朝", YuMincho, "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN", "HG明朝E", "ＭＳ Ｐ明朝", "MS PMincho", serif;
+        font-size: 12px !important;
+        font-family: "游明朝", YuMincho, serif;
     }
     .full-width {
-    width: 100%;
-    font-size: 20px;
+        width: 100%;
+        font-size: 20px;
     }
+
+    .scene, .face {
+        width: 150px !important;
+        height: 150px !important;
+    }
+    .scene {
+        margin: 30px auto 40px auto !important;
+        perspective: 500px !important;
+    }
+
+    .front  { transform: rotateY(0deg) translateZ(75px) !important; }
+    .back   { transform: rotateY(180deg) translateZ(75px) !important; }
+    .right  { transform: rotateY(90deg) translateZ(75px) !important; }
+    .left   { transform: rotateY(-90deg) translateZ(75px) !important; }
+    .top    { transform: rotateX(90deg) translateZ(75px) !important; }
+    .bottom { transform: rotateX(-90deg) translateZ(75px) !important; }
 }
 
 /* PC */
 @media screen and (min-width: 769px) {
-    .mainSwiper {
-    max-width: 50% !important;
-    }
-    .swiper-slide {
-    border: 20px solid #ffffff;
-  }
+    .mainSwiper { max-width: 50% !important; }
+    .swiper-slide { border: 20px solid #ffffff; }
 }
 
-/* リンクボタンの設定 */
+/* リンクボタン */
 .button {
     padding: 10px 30px;
     background: linear-gradient(#a89dac,#595857);
@@ -148,115 +221,26 @@ body.no-scroll {
     border: none;
     transition: 1.0s;
     cursor: pointer;
-    font-family: "游明朝", YuMincho, "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN", "HG明朝E", "ＭＳ Ｐ明朝", "MS PMincho", serif;
+    font-family: "游明朝", YuMincho, serif;
 }
 .button:hover {
     color: white;
     background: #607180;
 }
 
-/* グリッド */
-.in-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
-  width: 100%;
-}
-
-.grid-item {
-  aspect-ratio: 1/1;
-  position: relative !important;
-  overflow: hidden;
-}
-
-.grid-item video,
-.grid-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: all 0.3s ease;
-}
-
-
-
-/* オーバーレイ */
-.grid-overlay {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed !important;
-    top: 0 !important; 
-    left: 0 !important; 
-    z-index: 9999999 !important;
-    width: 100vw !important; 
-    height: 100vh !important;
-    background: rgba(0, 0, 0, 0.85);
-    opacity: 0; 
-    visibility: hidden;
-    transition: 0.3s;
-}
-
-.grid-overlay .close_btn {
-    position: fixed;
-    top: 20px;
-    right: 30px;
-    z-index: 99999999;
-    color: white;
-    font-size: 40px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.grid-overlay .close_btn:hover {
-    color: #fa7a18 !important;
-    transform: scale(1.1) rotate(90deg);
-}
-
-.grid-overlay.is-active {
-    opacity: 1 !important;
-    visibility: visible !important;
-}
-
-.grid-overlay .popup_content {
-    position: relative;
-    width: 90%; 
-    max-width: 900px;
-    max-height: 90vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.grid-overlay video, 
-.grid-overlay img {
-    max-width: 95vw;
-    max-height: 90vh;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    display: block;
-    margin: 0 auto;
-}
-
+/* ミュートボタン */
 .mute-btn {
-  position: absolute !important;
-  top: 10px !important;
-  right: 10px !important;
-  z-index: 1000 !important;
-  display: block !important;
-  visibility: visible !important;
-  background: rgba(0, 0, 0, 0.6) !important;
-  color: #fff !important;
-  border-radius: 10px !important;
-  padding: 5px 8px !important;
-  cursor: pointer !important;
-  pointer-events: auto !important;
-  opacity: 1 !important;
-}
-
-.grid-item label {
-  position: relative;
-  overflow: hidden;
+    position: absolute !important;
+    top: 10px !important;
+    right: 10px !important;
+    z-index: 1000 !important;
+    display: block !important;
+    background: rgba(0, 0, 0, 0.6) !important;
+    color: #fff !important;
+    border-radius: 10px !important;
+    padding: 5px 8px !important;
+    cursor: pointer !important;
+    border: none;
 }
 
 /* スワイパー */
@@ -275,7 +259,6 @@ body.no-scroll {
     overflow: hidden;
     border: 5px solid #ffffff;
     box-sizing: border-box;
-    outline-offset: -5px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 .mainSwiper .swiper-slide {
@@ -285,12 +268,11 @@ body.no-scroll {
     aspect-ratio: 1 / 1;
 }
 
-.swiper-slide img, .swiper-slide video {
+.swiper-slide video {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: inherit;
 }
 
 /* スライド説明 */
@@ -308,7 +290,6 @@ body.no-scroll {
     border-radius: 8px;
     padding: 15px 20px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(5px);
     box-sizing: border-box;
 }
 
@@ -316,315 +297,134 @@ body.no-scroll {
     color: #ffffff;
     font-size: 15px;
     line-height: 1.6;
-    letter-spacing: 0.05em;
     transition: opacity 0.3s ease;
     opacity: 1;
     width: 100%;
 }
 
-/* スライド文章 */
-.slide-description .slide-title {
-    font-size: 18px;
-    font-weight: bold;
-    color: #bba483;
-    margin-bottom: 6px;
-    display: block;
-}
-
-.slide-description .slide-title1 {
-    font-size: 15px;
-    font-weight: bold;
-    color: #bba483;
-    margin-bottom: 6px;
-    display: block;
-}
-
-.slide-description .slide-title2 {
-    font-size: 13px;
-    font-weight: bold;
-    color: #bba483;
-    margin-bottom: 6px;
-    display: block;
-}
-
-.slide-description.fade-out {
-    opacity: 0;
-}
-
-
-
-
+.slide-description .slide-title { font-size: 18px; font-weight: bold; color: #bba483; margin-bottom: 6px; display: block; }
+.slide-description .slide-title1 { font-size: 15px; font-weight: bold; color: #bba483; margin-bottom: 6px; display: block; }
+.slide-description .slide-title2 { font-size: 13px; font-weight: bold; color: #bba483; margin-bottom: 6px; display: block; }
+.slide-description.fade-out { opacity: 0; }
 </style>
 </head>
 
 <body>
 
-<!--オープニング-->
+
+
+<!-- オープニング -->
 <div id="opening-mask">
-<div class="opening-text">
-とある東京の役者<br>
-</div></div>
-<!--オープニング-->
-
-
-<!--header-->
-<div id="header"align="center" valign="middle">
-<img src="common/images/icon.png" style="width: 50px; height: auto; display: block;">
-<span class="maintitle full-width" style="color:#555555; font-size:20px; font-family:'Yu Mincho';">
-とある東京の役者
-</span>
+  <div class="opening-text">とある東京の役者</div>
 </div>
 
+<!-- header -->
+<div id="header" align="center" valign="middle">
+  <img src="common/images/icon.png" style="width: 50px; height: auto; display: block;">
+  <span class="maintitle full-width" style="color:#555555; font-size:20px; font-family:'Yu Mincho';">
+    とある東京の役者
+  </span>
+</div>
 
-
-<!--メイン動画-->
-<video autoplay muted loop playsinline controls style="width: 100%; height: auto; display: block; margin-bottom: 0px;">
-<source src="common/videos/cm.mp4" type="video/mp4">
+<!-- メイン動画 -->
+<video autoplay muted loop playsinline controls style="width: 100%; height: auto; display: block;">
+  <source src="common/videos/cm.mp4" type="video/mp4">
 </video>
 
-
-
-<!--SNS-->
-<div class="full-width" style="width: 100%;">
-<div style="background-color: #607180; padding: 10px; text-align: center;">
-<span style="color: #bba483; font-family: 'Yu Mincho', '遊明朝', serif; letter-spacing: 0.15em;">
-Various SNS
-</span>
-</div>
-
-<div style="background-color: #607180; padding-bottom: 45px;">
-<div style="background-color: #ffffff; width: 100%; padding: 15px 0; display: flex; justify-content: center; align-items: center; gap: 10px;">
-<a href="https://www.tiktok.com/@infotokyoactor" target="_blank" rel="noopener noreferrer" style="text-decoration: none; display: inline-block;">
-<img src="common/images/tiktok.png" alt="TikTok" style="width: 50px; height: 50px; object-fit: cover; cursor: pointer; transition: all 0.3s ease; display: block;" onmouseover="this.style.opacity='0.7'; this.style.transform='scale(1.1)';" onmouseout="this.style.opacity='1.0'; this.style.transform='scale(1.0)';" />
-</a>
-<a href="https://x.com/infotokyoactor" target="_blank" rel="noopener noreferrer" style="text-decoration: none; display: inline-block;">
-<img src="common/images/x.png" alt="エックス" style="width: 50px; height: 50px; object-fit: cover; cursor: pointer; transition: all 0.3s ease; display: block;" onmouseover="this.style.opacity='0.7'; this.style.transform='scale(1.1)';" onmouseout="this.style.opacity='1.0'; this.style.transform='scale(1.0)';" />
-</a>
-</div>
-</div>
+<!-- SNS -->
+<div class="full-width">
+  <div style="background-color: #607180; padding: 10px; text-align: center;">
+    <span style="color: #bba483; font-family: 'Yu Mincho', serif; letter-spacing: 0.15em;">Various SNS</span>
+  </div>
+  <div style="background-color: #607180; padding-bottom: 45px;">
+    <div style="background-color: #ffffff; width: 100%; padding: 15px 0; display: flex; justify-content: center; align-items: center; gap: 10px;">
+      <a href="https://www.tiktok.com/@infotokyoactor" target="_blank" rel="noopener noreferrer">
+        <img src="common/images/tiktok.png" alt="TikTok" style="width: 50px; height: 50px; object-fit: cover;" />
+      </a>
+      <a href="https://x.com/infotokyoactor" target="_blank" rel="noopener noreferrer">
+        <img src="common/images/x.png" alt="X" style="width: 50px; height: 50px; object-fit: cover;" />
+      </a>
+    </div>
+  </div>
 </div>
 
 
-
-<!--メンバー紹介-->
-<div style=" margin-bottom: 20px;">
-<img src="common/images/member.webp" style="width: 100%; height: auto; display: block;">
-
-
-
-
-
-<!--動画グリッド-->
-<div class="in-grid">
-
-
-
-  <!-- 1 -->
-<div class="grid-item">
-<input id="grid1" type="checkbox" style="display:none;">
-<label for="grid1" style="cursor:pointer; display:block; width:100%; height:100%;">
-<img src="common/images/yusukekuwata.webp" style="width:100%; height:100%; object-fit:cover;transition: all 0.3s ease;" onmouseover="this.style.opacity='0.7'; this.style.transform='scale(1.1)';" onmouseout="this.style.opacity='1.0'; this.style.transform='scale(1.0)';" />
-</label> 
-<div class="grid-overlay" id="overlay-grid1">
-<label for="grid1" class="close_btn">×</label>
-<div class="popup_content">
-<img src="common/images/yusukekuwata.webp">
-</div>
-</div>
-</div>
-
-  <!-- 2 -->
-<div class="grid-item">
-<input id="grid2" type="checkbox" style="display:none;">
-<label for="grid2" style="cursor:pointer; display:block; width:100%; height:100%;">
-<img src="common/images/takumahiguchi.webp" style="width:100%; height:100%; object-fit:cover;transition: all 0.3s ease;" onmouseover="this.style.opacity='0.7'; this.style.transform='scale(1.1)';" onmouseout="this.style.opacity='1.0'; this.style.transform='scale(1.0)';" />
-</label> 
-<div class="grid-overlay" id="overlay-grid2">
-<label for="grid2" class="close_btn">×</label>
-<div class="popup_content">
-<img src="common/images/takumahiguchi.webp">
-</div>
-</div>
-</div>
-
-
-  <!-- 3 -->
-<div class="grid-item">
-<input id="grid3" type="checkbox" style="display:none;">
-<label for="grid3" style="cursor:pointer; display:block; width:100%; height:100%;">
-<img src="common/images/seitotachibana.webp" style="width:100%; height:100%; object-fit:cover;transition: all 0.3s ease;" onmouseover="this.style.opacity='0.7'; this.style.transform='scale(1.1)';" onmouseout="this.style.opacity='1.0'; this.style.transform='scale(1.0)';" />
-</label> 
-<div class="grid-overlay" id="overlay-grid3">
-<label for="grid3" class="close_btn">×</label>
-<div class="popup_content">
-<img src="common/images/seitotachibana.webp">
-</div>
-</div>
+<div>
+  <img src="common/images/member.webp" style="width: 100%; height: auto; display: block;">
 </div>
 
 
 
-  <!-- 4 -->
-<div class="grid-item">
-<input id="grid4" type="checkbox" style="display:none;">
-<label for="grid4" style="cursor:pointer; display:block; width:100%; height:100%;">
-<img src="common/images/mitsukitabii.webp" style="width:100%; height:100%; object-fit:cover;transition: all 0.3s ease;" onmouseover="this.style.opacity='0.7'; this.style.transform='scale(1.1)';" onmouseout="this.style.opacity='1.0'; this.style.transform='scale(1.0)';" />
-</label> 
-<div class="grid-overlay" id="overlay-grid4">
-<label for="grid4" class="close_btn">×</label>
-<div class="popup_content">
-<img src="common/images/mitsukitabii.webp">
-</div>
-</div>
+<!-- ▼▼▼ 3Dキューブ▼▼▼ -->
+<div class="scene" id="scene">
+  <div class="cube" id="cube">
+    <div class="face front"><img src="common/images/favicon.png" alt="桑田裕介"></div>
+    <div class="face back"><img src="common/images/mitsukitabii.webp" alt="樋口拓馬"></div>
+    <div class="face right"><img src="common/images/seitotachibana.webp" alt="橘星音"></div>
+    <div class="face left"><img src="common/images/takumahiguchi.webp" alt="足袋井海月"></div>
+    <div class="face top"><img src="common/images/yusukekuwata.webp" alt="アイコン"></div>
+    <div class="face bottom"><img src="common/images/ayano.webp" alt="アヤノアキラ"></div>
+  </div>
 </div>
 
 
-
-  <!-- 5 -->
-<div class="grid-item">
-<input id="grid5" type="checkbox" style="display:none;">
-<label for="grid5" style="cursor:pointer; display:block; width:100%; height:100%;">
-<img src="common/images/favicon.png" style="width:100%; height:100%; object-fit:cover;transition: all 0.3s ease;" onmouseover="this.style.opacity='0.7'; this.style.transform='scale(1.1)';" onmouseout="this.style.opacity='1.0'; this.style.transform='scale(1.0)';" />
-</label> 
-<div class="grid-overlay" id="overlay-grid5">
-<label for="grid5" class="close_btn">×</label>
-<div class="popup_content">
-<img src="common/images/favicon.png">
-</div>
-</div>
-</div>
-
-  <!-- 6 -->
-<div class="grid-item">
-<input id="grid6" type="checkbox" style="display:none;">
-<label for="grid6" style="cursor:pointer; display:block; width:100%; height:100%;">
-<img src="common/images/ayano.webp" style="width:100%; height:100%; object-fit:cover;transition: all 0.3s ease;" onmouseover="this.style.opacity='0.7'; this.style.transform='scale(1.1)';" onmouseout="this.style.opacity='1.0'; this.style.transform='scale(1.0)';" />
-</label> 
-<div class="grid-overlay" id="overlay-grid6">
-<label for="grid6" class="close_btn">×</label>
-<div class="popup_content">
-<img src="common/images/ayano.webp">
-</div>
-</div>
-</div>
-
-</div>
+<div id="imageModal" class="modal">
+  <span class="modal-close" id="modalClose">&times;</span>
+  <img class="modal-content" id="modalImg" src="" alt="拡大画像">
 </div>
 
 
 
 <!-- メインスワイパー -->
 <div class="swiper mainSwiper">
-<div class="swiper-wrapper">
-  
-<!-- スライド1 -->
-<div class="swiper-slide">
-    <input id="swiper1" type="checkbox" style="display:none;">
-    <button class="mute-btn" onclick="event.preventDefault(); toggleMute(this);"><img src="common/images/icon/spkoff.png" alt="スピーカー" style="width: 20px; height: auto;"></button>
-    <label for="swiper1" style="cursor:pointer; display:block; width:100%; height:100%;">
-        <video src="common/videos/l2.mp4" autoplay muted loop playsinline></video>
-    </label>
-</div>
-
-<!-- スライド2 -->
-<div class="swiper-slide">
-    <input id="swiper2" type="checkbox" style="display:none;">
-    <button class="mute-btn" onclick="event.preventDefault(); toggleMute(this);"><img src="common/images/icon/spkoff.png" alt="スピーカー" style="width: 20px; height: auto;"></button>
-    <label for="swiper2" style="cursor:pointer; display:block; width:100%; height:100%;">
-        <video src="common/videos/l1.mp4" autoplay muted loop playsinline></video>
-    </label>
-</div>
-
-<!-- スライド3 (動画) -->
-<div class="swiper-slide">
-    <input id="swiper3" type="checkbox" style="display:none;">
-    <button class="mute-btn" onclick="event.preventDefault(); toggleMute(this);"><img src="common/images/icon/spkoff.png" alt="スピーカー" style="width: 20px; height: auto;"></button>
-    <label for="swiper3" style="cursor:pointer; display:block; width:100%; height:100%;">
-        <video src="common/videos/c.mp4" autoplay muted loop playsinline></video>
-    </label>
-</div>
-
-<!-- スライド4 -->
-<div class="swiper-slide">
-    <input id="swiper4" type="checkbox" style="display:none;">
-    <button class="mute-btn" onclick="event.preventDefault(); toggleMute(this);"><img src="common/images/icon/spkoff.png" alt="スピーカー" style="width: 20px; height: auto;"></button>
-    <label for="swiper4" style="cursor:pointer; display:block; width:100%; height:100%;">
-        <video src="common/videos/r1.mp4" autoplay muted loop playsinline></video>
-    </label>
-</div>
-
-<!-- スライド5 -->
-<div class="swiper-slide">
-    <input id="swiper5" type="checkbox" style="display:none;">
-    <button class="mute-btn" onclick="event.preventDefault(); toggleMute(this);"><img src="common/images/icon/spkoff.png" alt="スピーカー" style="width: 20px; height: auto;"></button>
-    <label for="swiper5" style="cursor:pointer; display:block; width:100%; height:100%;">
-        <video src="common/videos/r2.mp4" autoplay muted loop playsinline></video>
-    </label>
-</div>
-
-</div>
-</div>
-
-
-<div class="global-overlays">
-    <div class="grid-overlay" id="overlay-swiper1">
-        <label for="swiper1" class="close_btn">×</label>
-        <div class="popup_content"><video src="common/videos/l2.mp4" controls muted playsinline></video></div>
+  <div class="swiper-wrapper">
+    <div class="swiper-slide">
+      <button class="mute-btn" onclick="toggleMute(this);"><img src="common/images/icon/spkoff.png" alt="スピーカー" style="width: 20px;"></button>
+      <video src="common/videos/l2.mp4" autoplay muted loop playsinline></video>
     </div>
-    <div class="grid-overlay" id="overlay-swiper2">
-        <label for="swiper2" class="close_btn">×</label>
-        <div class="popup_content"><video src="common/videos/l1.mp4" controls muted playsinline></video></div>
+    <div class="swiper-slide">
+      <button class="mute-btn" onclick="toggleMute(this);"><img src="common/images/icon/spkoff.png" alt="スピーカー" style="width: 20px;"></button>
+      <video src="common/videos/l1.mp4" autoplay muted loop playsinline></video>
     </div>
-    <div class="grid-overlay" id="overlay-swiper3">
-        <label for="swiper3" class="close_btn">×</label>
-        <div class="popup_content"><video src="common/videos/c.mp4" controls muted playsinline></video></div>
+    <div class="swiper-slide">
+      <button class="mute-btn" onclick="toggleMute(this);"><img src="common/images/icon/spkoff.png" alt="スピーカー" style="width: 20px;"></button>
+      <video src="common/videos/c.mp4" autoplay muted loop playsinline></video>
     </div>
-    <div class="grid-overlay" id="overlay-swiper4">
-        <label for="swiper4" class="close_btn">×</label>
-        <div class="popup_content"><video src="common/videos/r1.mp4" controls muted playsinline></video></div>
+    <div class="swiper-slide">
+      <button class="mute-btn" onclick="toggleMute(this);"><img src="common/images/icon/spkoff.png" alt="スピーカー" style="width: 20px;"></button>
+      <video src="common/videos/r1.mp4" autoplay muted loop playsinline></video>
     </div>
-    <div class="grid-overlay" id="overlay-swiper5">
-        <label for="swiper5" class="close_btn">×</label>
-        <div class="popup_content"><video src="common/videos/r2.mp4" controls muted playsinline></video></div>
+    <div class="swiper-slide">
+      <button class="mute-btn" onclick="toggleMute(this);"><img src="common/images/icon/spkoff.png" alt="スピーカー" style="width: 20px;"></button>
+      <video src="common/videos/r2.mp4" autoplay muted loop playsinline></video>
     </div>
+  </div>
 </div>
 
 <div class="slide-description-container">
-    <div id="slide-description" class="slide-description"></div>
+  <div id="slide-description" class="slide-description"></div>
 </div>
 
+<hr style="border: none; border-top: 1px solid #ddd; width: 100%; margin: 0;">
 
-
-<hr style="border: none; border-top: 1px solid #ddd; width: 100%; margin-top: 0px;">
-
-
-
-
-<!--メール送信-->
+<!-- メール送信 -->
 <div style="text-align: center; margin-top: 20px;">
-【出演依頼、コラボのご依頼などはこちらから】<br>
-<a href="mailto:info.tokyoactor@gmail.com" target="_blank" class="button"><b>メールを送る</b></a><br>
-<button onclick="copyEmail()" class="button" style="margin-top: 10px; margin-bottom: 5px;"><b>アドレスをコピー</b></button>
-<br>
+  【出演依頼、コラボのご依頼などはこちらから】<br>
+  <a href="mailto:info.tokyoactor@gmail.com" target="_blank" class="button"><b>メールを送る</b></a><br>
+  <button onclick="copyEmail()" class="button" style="margin-top: 10px; margin-bottom: 5px;"><b>アドレスをコピー</b></button>
 </div>
 
-
-<!--上に戻る-->
+<!-- 上に戻る -->
 <div align="right" style="margin: 20px 10px;">
-<a href="#header" style="text-decoration: none; color:#2b2b2b;">ページ上に戻る ▲</a>
+  <a href="#header" style="text-decoration: none; color:#2b2b2b;">ページ上に戻る ▲</a>
 </div>
 
-
-
-<!--▼footer▼-->
+<!-- footer -->
 <footer>
-<div style="background: #607180; padding: 15px; text-align: center; color:white; font-size:12px;">
-©とある東京の役者
-</div>
+  <div style="background: #607180; padding: 15px; text-align: center; color:white; font-size:12px;">
+    ©とある東京の役者
+  </div>
 </footer>
-<!--▲footer▲-->
-
-
 
 <script>
 // オープニング
@@ -651,48 +451,173 @@ function toggleMute(btn) {
     }
 }
 
-document.querySelectorAll('.grid-item input, .swiper-slide input').forEach(input => {
-    input.addEventListener('change', function() {
-        const id = this.id;
-        const overlay = document.getElementById('overlay-' + id);
-        const item = this.closest('.grid-item') || this.closest('.swiper-slide');
-        const slideVideo = item.querySelector(':scope > label > video');
+// --------------------------------------------------
+// 3Dキューブ制御スクリプト
+// --------------------------------------------------
+const scene = document.getElementById('scene');
+const cube = document.getElementById('cube');
+const modal = document.getElementById('imageModal');
+const modalImg = document.getElementById('modalImg');
+const modalClose = document.getElementById('modalClose');
 
-        if (this.checked) {
-            if (overlay) overlay.classList.add('is-active');
-            const popVideo = overlay ? overlay.querySelector('video') : null;
-            if (popVideo) {
-                popVideo.load();
-                popVideo.play().then(() => {
-                    popVideo.pause();
-                }).catch(e => {
-                    console.log("プレビュー強制描画:", e);
-                });
-            }
-            if (slideVideo) slideVideo.pause();
-        } else {
-            if (overlay) {
-                overlay.classList.remove('is-active');
-                const popVideo = overlay.querySelector('video');
-                if (popVideo) {
-                    popVideo.pause();
-                    popVideo.currentTime = 0;
-                }
-            }
-            if (slideVideo) {
-                slideVideo.muted = true;
-                slideVideo.play();
-                const muteBtn = item.querySelector('.mute-btn');
-                if (muteBtn) {
-                    const img = muteBtn.querySelector('img');
-                    if (img) img.src = 'common/images/icon/spkoff.png';
-                }
-            }
+let rotX = 0, rotY = 0;
+let targetRotX = 0, targetRotY = 0;
+let isDragging = false;
+let isDraggedFar = false;
+let startX = 0, startY = 0;
+let lastX = 0, lastY = 0;
+let activeAxis = null;
+let idleTimer = null;
+let isAutoRotating = false;
+
+function resetIdleTimer() {
+    clearTimeout(idleTimer);
+    isAutoRotating = false;
+    idleTimer = setTimeout(() => {
+        targetRotX = Math.round(targetRotX / 90) * 90;
+        targetRotY = Math.round(targetRotY / 90) * 90;
+        isAutoRotating = true;
+    }, 1500);
+}
+
+function updateCube() {
+    if (isAutoRotating && !isDragging) {
+        targetRotX = 0;
+        targetRotY += 0.4;
+    }
+
+    rotX += (targetRotX - rotX) * 0.1;
+    rotY += (targetRotY - rotY) * 0.1;
+
+    cube.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+    requestAnimationFrame(updateCube);
+}
+
+resetIdleTimer();
+updateCube();
+
+function getPos(e) {
+    return {
+        x: e.touches ? e.touches[0].clientX : e.clientX,
+        y: e.touches ? e.touches[0].clientY : e.clientY
+    };
+}
+
+function onStart(e) {
+    isDragging = true;
+    isDraggedFar = false;
+    activeAxis = null;
+    clearTimeout(idleTimer);
+    isAutoRotating = false;
+
+    const pos = getPos(e);
+    startX = pos.x;
+    startY = pos.y;
+    lastX = pos.x;
+    lastY = pos.y;
+}
+
+function onMove(e) {
+    if (!isDragging) return;
+
+    const pos = getPos(e);
+    const deltaX = pos.x - lastX;
+    const deltaY = pos.y - lastY;
+    const totalDist = Math.hypot(pos.x - startX, pos.y - startY);
+
+    if (totalDist > 6) {
+        isDraggedFar = true;
+    }
+
+    if (!activeAxis && totalDist > 8) {
+        activeAxis = Math.abs(pos.x - startX) > Math.abs(pos.y - startY) ? 'y' : 'x';
+    }
+
+    if (activeAxis === 'y') {
+        targetRotY += deltaX * 0.6;
+        targetRotX = 0;
+    } else if (activeAxis === 'x') {
+        targetRotX -= deltaY * 0.6;
+        targetRotY = 0;
+    }
+
+    lastX = pos.x;
+    lastY = pos.y;
+}
+
+function onEnd() {
+    if (!isDragging) return;
+    isDragging = false;
+
+    if (activeAxis === 'y') {
+        targetRotY = Math.round(targetRotY / 90) * 90;
+    } else if (activeAxis === 'x') {
+        targetRotX = Math.round(targetRotX / 90) * 90;
+    } else {
+        targetRotX = Math.round(targetRotX / 90) * 90;
+        targetRotY = Math.round(targetRotY / 90) * 90;
+    }
+
+    resetIdleTimer();
+}
+
+scene.addEventListener('mousedown', onStart);
+window.addEventListener('mousemove', onMove);
+window.addEventListener('mouseup', onEnd);
+
+scene.addEventListener('touchstart', onStart, { passive: true });
+window.addEventListener('touchmove', onMove, { passive: true });
+window.addEventListener('touchend', onEnd);
+
+let wheelCooling = false;
+scene.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    if (wheelCooling) return;
+
+    clearTimeout(idleTimer);
+    isAutoRotating = false;
+
+    if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+        targetRotX = 0;
+        targetRotY -= e.deltaX > 0 ? 90 : -90;
+    } else {
+        targetRotY = 0;
+        targetRotX += e.deltaY > 0 ? 90 : -90;
+    }
+
+    wheelCooling = true;
+    setTimeout(() => { wheelCooling = false; }, 300);
+
+    resetIdleTimer();
+}, { passive: false });
+
+document.querySelectorAll('.face').forEach(face => {
+    face.addEventListener('click', () => {
+        if (isDraggedFar) return;
+
+        const img = face.querySelector('img');
+        if (img) {
+            modalImg.src = img.src;
+            modal.classList.add('show');
+            clearTimeout(idleTimer);
+            isAutoRotating = false;
         }
     });
 });
 
+function closeModal() {
+    modal.classList.remove('show');
+    resetIdleTimer();
+}
 
+modalClose.addEventListener('click', closeModal);
+modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+});
+
+// --------------------------------------------------
+// プロフィール & スワイパー制御
+// --------------------------------------------------
 function calculateAge(year, month, day) {
     if (!year || !month || !day) return "";
     const today = new Date();
@@ -705,24 +630,23 @@ function calculateAge(year, month, day) {
     return age;
 }
 
-// 生年月日データ
 const birthDates = [
     [2002, 2, 18], // 足袋井 海月
     [1989, 3, 28], // 桑田 裕介
     [1996, 1, 30], // 樋口 拓馬
     [1999, 9, 20], // 橘 星音
-    null          
+    null           
 ];
 
 const descriptions = [
-"<div class='slide-title' style='text-align:center'>俳優<br>足袋井 海月</div><div class='slide-title2'style='text-align:center'>Mitsuki Tabii</div><br><div class='slide-title1'>生年月日:2002年2月18日(<span id=\"my-age\"></span>歳)<br>血液型：AB型<br>出身地：広島県<br>MBTI：ENFP<br>好きな食べ物：数の子<br></div> ",
-"<div class='slide-title' style='text-align:center'>俳優<br>桑田 裕介</div><div class='slide-title2'style='text-align:center'>Yusuke Kuwata</div><br><div class='slide-title1'>生年月日:1989年3月28日(<span id=\"my-age\"></span>歳)<br>血液型：O型<br>出身地：大阪府<br>MBTI：ESFP-A<br>好きな食べ物：しめ鯖<br></div> ",
-"<div class='slide-title' style='text-align:center'>俳優<br>樋口 拓馬</div><div class='slide-title2'style='text-align:center'>Takuma Higuchi</div><br><div class='slide-title1'>生年月日:1996年1月30日(<span id=\"my-age\"></span>歳)<br>血液型：B型<br>出身地：京都府<br>MBTI：ENFJ<br>好きな食べ物：馬刺し<br></div> ",
-"<div class='slide-title' style='text-align:center'>俳優<br>橘 星音</div><div class='slide-title2'style='text-align:center'>Seito Tachibana</div><br><div class='slide-title1'>生年月日:1999年9月20日(<span id=\"my-age\"></span>歳)<br>血液型：O型<br>出身地：京都府<br>MBTI：ENTJ<br>好きな食べ物：寿司<br></div> ",
-"<div class='slide-title' style='text-align:center'>カメラマン<br>アヤノ アキラ</div><div class='slide-title2'style='text-align:center'>Akira Ayano</div><br><div class='slide-title1'>生年月日:マカロン〇個分<br>血液型：A型<br>出身地：和歌山県<br>MBTI：INTJ<br>好きな食べ物：チョコレート<br></div> ",
+    "<div class='slide-title' style='text-align:center'>俳優<br>足袋井 海月</div><div class='slide-title2' style='text-align:center'>Mitsuki Tabii</div><br><div class='slide-title1'>生年月日:2002年2月18日(<span id=\"my-age\"></span>歳)<br>血液型：AB型<br>出身地：広島県<br>MBTI：ENFP<br>好きな食べ物：数の子<br></div>",
+    "<div class='slide-title' style='text-align:center'>俳優<br>桑田 裕介</div><div class='slide-title2' style='text-align:center'>Yusuke Kuwata</div><br><div class='slide-title1'>生年月日:1989年3月28日(<span id=\"my-age\"></span>歳)<br>血液型：O型<br>出身地：大阪府<br>MBTI：ESFP-A<br>好きな食べ物：しめ鯖<br></div>",
+    "<div class='slide-title' style='text-align:center'>俳優<br>樋口 拓馬</div><div class='slide-title2' style='text-align:center'>Takuma Higuchi</div><br><div class='slide-title1'>生年月日:1996年1月30日(<span id=\"my-age\"></span>歳)<br>血液型：B型<br>出身地：京都府<br>MBTI：ENFJ<br>好きな食べ物：馬刺し<br></div>",
+    "<div class='slide-title' style='text-align:center'>俳優<br>橘 星音</div><div class='slide-title2' style='text-align:center'>Seito Tachibana</div><br><div class='slide-title1'>生年月日:1999年9月20日(<span id=\"my-age\"></span>歳)<br>血液型：O型<br>出身地：京都府<br>MBTI：ENTJ<br>好きな食べ物：寿司<br></div>",
+    "<div class='slide-title' style='text-align:center'>カメラマン<br>アヤノ アキラ</div><div class='slide-title2' style='text-align:center'>Akira Ayano</div><br><div class='slide-title1'>生年月日:マカロン〇個分<br>血液型：A型<br>出身地：和歌山県<br>MBTI：INTJ<br>好きな食べ物：チョコレート<br></div>"
 ];
-const descEl = document.getElementById('slide-description');
 
+const descEl = document.getElementById('slide-description');
 
 function renderContent(index) {
     if (!descEl) return;
@@ -744,9 +668,6 @@ function updateDescription(index) {
     }, 300);
 }
 
-
-
-// メインSwiper
 const swiperVideos = document.querySelectorAll('.mainSwiper video');
 const mainSwiper = new Swiper(".mainSwiper", {
     effect: "coverflow",
@@ -767,9 +688,7 @@ const mainSwiper = new Swiper(".mainSwiper", {
     on: {
         init: function () {
             renderContent(this.initialSlide);
-            if (descEl) {
-                descEl.classList.remove('fade-out');
-            }
+            if (descEl) descEl.classList.remove('fade-out');
         },
         slideChange: function () {
             swiperVideos.forEach(v => {
@@ -789,17 +708,6 @@ const mainSwiper = new Swiper(".mainSwiper", {
     }
 });
 
-
-swiperVideos.forEach(v => {
-    v.addEventListener('timeupdate', () => {
-        const bar = v.parentElement.querySelector('.progress-bar-inner');
-        if (bar) {
-            const percent = (v.currentTime / v.duration) * 100;
-            bar.style.width = percent + '%';
-        }
-    });
-});
-
 function copyEmail() {
     const emailText = "info.tokyoactor@gmail.com";
     navigator.clipboard.writeText(emailText).then(() => {
@@ -809,7 +717,6 @@ function copyEmail() {
     });
 }
 </script>
-
 
 </body>
 </html>
