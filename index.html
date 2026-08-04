@@ -483,7 +483,7 @@ function resetIdleTimer() {
 function updateCube() {
     if (isAutoRotating && !isDragging) {
         targetRotX = 0;
-        targetRotY += 0.4;
+        targetRotY += 0.15;
     }
 
     rotX += (targetRotX - rotX) * 0.1;
