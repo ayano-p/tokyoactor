@@ -10,15 +10,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap');
-
 /* 全体 */
 body, table, td, h1, span, div, p {
     font-family: 'Noto Serif JP', "Yu Mincho", "YuMincho", serif !important;
@@ -56,10 +52,7 @@ html, body {
 
 .opening-text {
     font-size: clamp(32px, 6vw, 60px);
-    background: linear-gradient(to bottom,#555555);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: #555555;
     font-family: 'Yu Mincho', serif;
     letter-spacing: 0.1em;
     opacity: 0;
@@ -76,7 +69,7 @@ body.no-scroll {
     overflow: hidden;
 }
 
-/* --- 3Dステージ & キューブエリア --- */
+/* 3Dステージ & キューブエリア */
 .scene {
     width: 220px;
     height: 220px;
@@ -125,7 +118,7 @@ body.no-scroll {
 .top    { transform: rotateX(90deg) translateZ(110px); }
 .bottom { transform: rotateX(-90deg) translateZ(110px); }
 
-/* キューブ用モーダル */
+/* モーダル（ポップアップ） */
 .modal {
     display: none;
     position: fixed;
@@ -164,6 +157,7 @@ body.no-scroll {
     cursor: pointer;
     user-select: none;
     transition: color 0.3s;
+    z-index: 1000000;
 }
 
 .modal-close:hover {
@@ -260,6 +254,7 @@ body.no-scroll {
     border: 5px solid #ffffff;
     box-sizing: border-box;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
 }
 .mainSwiper .swiper-slide {
     width: 90%;
@@ -313,10 +308,13 @@ body.no-scroll {
 
 
 
+
 <!-- オープニング -->
 <div id="opening-mask">
   <div class="opening-text">とある東京の役者</div>
 </div>
+
+
 
 <!-- header -->
 <div id="header" align="center" valign="middle">
@@ -326,10 +324,14 @@ body.no-scroll {
   </span>
 </div>
 
+
+
 <!-- メイン動画 -->
 <video autoplay muted loop playsinline controls style="width: 100%; height: auto; display: block;">
   <source src="common/videos/cm.mp4" type="video/mp4">
 </video>
+
+
 
 <!-- SNS -->
 <div class="full-width">
@@ -348,29 +350,31 @@ body.no-scroll {
   </div>
 </div>
 
-
 <div>
   <img src="common/images/member.webp" style="width: 100%; height: auto; display: block;">
 </div>
 
 
 
-<!-- ▼▼▼ 3Dキューブ▼▼▼ -->
+<!-- 3Dキューブ -->
 <div class="scene" id="scene">
   <div class="cube" id="cube">
-    <div class="face front"><img src="common/images/favicon.png" alt="桑田裕介"></div>
-    <div class="face back"><img src="common/images/mitsukitabii.webp" alt="樋口拓馬"></div>
+    <div class="face front"><img src="common/images/yusukekuwata.webp" alt="桑田裕介"></div>
+    <div class="face back"><img src="common/images/takumahiguchi.webp" alt="樋口拓馬"></div>
     <div class="face right"><img src="common/images/seitotachibana.webp" alt="橘星音"></div>
-    <div class="face left"><img src="common/images/takumahiguchi.webp" alt="足袋井海月"></div>
-    <div class="face top"><img src="common/images/yusukekuwata.webp" alt="アイコン"></div>
+    <div class="face left"><img src="common/images/mitsukitabii.webp" alt="足袋井海月"></div>
+    <div class="face top"><img src="common/images/favicon.png" alt="アイコン"></div>
     <div class="face bottom"><img src="common/images/ayano.webp" alt="アヤノアキラ"></div>
   </div>
 </div>
 
 
+
+<!-- ポップアップ -->
 <div id="imageModal" class="modal">
   <span class="modal-close" id="modalClose">&times;</span>
-  <img class="modal-content" id="modalImg" src="" alt="拡大画像">
+  <img class="modal-content" id="modalImg" src="" alt="拡大画像" style="display: none;">
+  <video class="modal-content" id="modalVideo" controls style="display: none;"></video>
 </div>
 
 
@@ -407,6 +411,8 @@ body.no-scroll {
 
 <hr style="border: none; border-top: 1px solid #ddd; width: 100%; margin: 0;">
 
+
+
 <!-- メール送信 -->
 <div style="text-align: center; margin-top: 20px;">
   【出演依頼、コラボのご依頼などはこちらから】<br>
@@ -414,10 +420,14 @@ body.no-scroll {
   <button onclick="copyEmail()" class="button" style="margin-top: 10px; margin-bottom: 5px;"><b>アドレスをコピー</b></button>
 </div>
 
+
+
 <!-- 上に戻る -->
 <div align="right" style="margin: 20px 10px;">
   <a href="#header" style="text-decoration: none; color:#2b2b2b;">ページ上に戻る ▲</a>
 </div>
+
+
 
 <!-- footer -->
 <footer>
@@ -425,6 +435,9 @@ body.no-scroll {
     ©とある東京の役者
   </div>
 </footer>
+
+
+
 
 <script>
 // オープニング
@@ -458,6 +471,7 @@ const scene = document.getElementById('scene');
 const cube = document.getElementById('cube');
 const modal = document.getElementById('imageModal');
 const modalImg = document.getElementById('modalImg');
+const modalVideo = document.getElementById('modalVideo');
 const modalClose = document.getElementById('modalClose');
 
 let rotX = 0, rotY = 0;
@@ -597,7 +611,11 @@ document.querySelectorAll('.face').forEach(face => {
 
         const img = face.querySelector('img');
         if (img) {
+            modalVideo.style.display = 'none';
+            modalVideo.pause();
+            
             modalImg.src = img.src;
+            modalImg.style.display = 'block';
             modal.classList.add('show');
             clearTimeout(idleTimer);
             isAutoRotating = false;
@@ -607,6 +625,10 @@ document.querySelectorAll('.face').forEach(face => {
 
 function closeModal() {
     modal.classList.remove('show');
+    if (modalVideo) {
+        modalVideo.pause();
+        modalVideo.currentTime = 0;
+    }
     resetIdleTimer();
 }
 
@@ -699,13 +721,35 @@ const mainSwiper = new Swiper(".mainSwiper", {
                 if (btn) btn.src = 'common/images/icon/spkoff.png';
             });
             const activeSlide = this.slides[this.activeIndex];
-            const activeVideo = activeSlide.querySelector('video');
+            const activeVideo = activeSlide ? activeSlide.querySelector('video') : null;
             if (activeVideo) {
                 activeVideo.play().catch(e => console.warn("再生中断:", e));
             }
             updateDescription(this.activeIndex);
         }
     }
+});
+
+document.querySelectorAll('.mainSwiper .swiper-slide').forEach(slide => {
+    slide.addEventListener('click', (e) => {
+        if (e.target.closest('.mute-btn')) return;
+
+        const video = slide.querySelector('video');
+        if (video && modalVideo) {
+            modalImg.style.display = 'none';
+
+            modalVideo.src = video.currentSrc || video.src;
+            modalVideo.style.display = 'block';
+            
+            modal.classList.add('show');
+            
+            modalVideo.muted = false;
+            modalVideo.play().catch(err => console.warn("動画再生エラー:", err));
+
+            clearTimeout(idleTimer);
+            isAutoRotating = false;
+        }
+    });
 });
 
 function copyEmail() {
