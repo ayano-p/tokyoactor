@@ -195,7 +195,7 @@ body.no-scroll {
     .bottom { transform: rotateX(-90deg) translateZ(75px) !important; }
 }
 
-/* PC */
+/* PC（枠線を元通り戻しました） */
 @media screen and (min-width: 769px) {
     .mainSwiper { max-width: 50% !important; }
     .swiper-slide { border: 20px solid #ffffff; }
@@ -251,7 +251,8 @@ body.no-scroll {
     transition: transform 0.5s, opacity 0.5s, filter 0.5s;
     position: relative;
     overflow: hidden;
-    border: 5px solid #ffffff;
+    border: 5px solid #ffffff; /* 枠線を復活 */
+    background: #000000; /* 背景を黒にして白い背景画像チラつきを防止 */
     box-sizing: border-box;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     cursor: pointer;
@@ -268,6 +269,7 @@ body.no-scroll {
     height: 100%;
     object-fit: cover;
     display: block;
+    background-color: #000; /* 動画読み込み前も黒にする */
 }
 
 /* スライド説明 */
@@ -306,15 +308,10 @@ body.no-scroll {
 
 <body>
 
-
-
-
 <!-- オープニング -->
 <div id="opening-mask">
   <div class="opening-text">とある東京の役者</div>
 </div>
-
-
 
 <!-- header -->
 <div id="header" align="center" valign="middle">
@@ -324,14 +321,10 @@ body.no-scroll {
   </span>
 </div>
 
-
-
 <!-- メイン動画 -->
 <video autoplay muted loop playsinline controls style="width: 100%; height: auto; display: block;">
   <source src="common/videos/cm.mp4" type="video/mp4">
 </video>
-
-
 
 <!-- SNS -->
 <div class="full-width">
@@ -354,21 +347,17 @@ body.no-scroll {
   <img src="common/images/member.webp" style="width: 100%; height: auto; display: block;">
 </div>
 
-
-
 <!-- 3Dキューブ -->
 <div class="scene" id="scene">
   <div class="cube" id="cube">
-    <div class="face front"><img src="common/images/yusukekuwata.webp" alt="桑田裕介"></div>
-    <div class="face back"><img src="common/images/takumahiguchi.webp" alt="樋口拓馬"></div>
+    <div class="face front"><img src="common/images/favicon.png" alt="アイコン"></div>
+    <div class="face back"><img src="common/images/mitsukitabii.webp" alt="足袋井海月"></div>
     <div class="face right"><img src="common/images/seitotachibana.webp" alt="橘星音"></div>
-    <div class="face left"><img src="common/images/mitsukitabii.webp" alt="足袋井海月"></div>
-    <div class="face top"><img src="common/images/favicon.png" alt="アイコン"></div>
+    <div class="face left"><img src="common/images/takumahiguchi.webp" alt="樋口拓馬"></div>
+    <div class="face top"><img src="common/images/yusukekuwata.webp" alt="桑田裕介"></div>
     <div class="face bottom"><img src="common/images/ayano.webp" alt="アヤノアキラ"></div>
   </div>
 </div>
-
-
 
 <!-- ポップアップ -->
 <div id="imageModal" class="modal">
@@ -377,30 +366,28 @@ body.no-scroll {
   <video class="modal-content" id="modalVideo" controls style="display: none;"></video>
 </div>
 
-
-
-<!-- メインスワイパー -->
+<!-- メインスワイパー（preload="auto"を追加） -->
 <div class="swiper mainSwiper">
   <div class="swiper-wrapper">
     <div class="swiper-slide">
       <button class="mute-btn" onclick="toggleMute(this);"><img src="common/images/icon/spkoff.png" alt="スピーカー" style="width: 20px;"></button>
-      <video src="common/videos/l2.mp4" autoplay muted loop playsinline></video>
+      <video src="common/videos/l2.mp4" autoplay muted loop playsinline preload="auto"></video>
     </div>
     <div class="swiper-slide">
       <button class="mute-btn" onclick="toggleMute(this);"><img src="common/images/icon/spkoff.png" alt="スピーカー" style="width: 20px;"></button>
-      <video src="common/videos/l1.mp4" autoplay muted loop playsinline></video>
+      <video src="common/videos/l1.mp4" autoplay muted loop playsinline preload="auto"></video>
     </div>
     <div class="swiper-slide">
       <button class="mute-btn" onclick="toggleMute(this);"><img src="common/images/icon/spkoff.png" alt="スピーカー" style="width: 20px;"></button>
-      <video src="common/videos/c.mp4" autoplay muted loop playsinline></video>
+      <video src="common/videos/c.mp4" autoplay muted loop playsinline preload="auto"></video>
     </div>
     <div class="swiper-slide">
       <button class="mute-btn" onclick="toggleMute(this);"><img src="common/images/icon/spkoff.png" alt="スピーカー" style="width: 20px;"></button>
-      <video src="common/videos/r1.mp4" autoplay muted loop playsinline></video>
+      <video src="common/videos/r1.mp4" autoplay muted loop playsinline preload="auto"></video>
     </div>
     <div class="swiper-slide">
       <button class="mute-btn" onclick="toggleMute(this);"><img src="common/images/icon/spkoff.png" alt="スピーカー" style="width: 20px;"></button>
-      <video src="common/videos/r2.mp4" autoplay muted loop playsinline></video>
+      <video src="common/videos/r2.mp4" autoplay muted loop playsinline preload="auto"></video>
     </div>
   </div>
 </div>
@@ -411,8 +398,6 @@ body.no-scroll {
 
 <hr style="border: none; border-top: 1px solid #ddd; width: 100%; margin: 0;">
 
-
-
 <!-- メール送信 -->
 <div style="text-align: center; margin-top: 20px;">
   【出演依頼、コラボのご依頼などはこちらから】<br>
@@ -420,14 +405,10 @@ body.no-scroll {
   <button onclick="copyEmail()" class="button" style="margin-top: 10px; margin-bottom: 5px;"><b>アドレスをコピー</b></button>
 </div>
 
-
-
 <!-- 上に戻る -->
 <div align="right" style="margin: 20px 10px;">
   <a href="#header" style="text-decoration: none; color:#2b2b2b;">ページ上に戻る ▲</a>
 </div>
-
-
 
 <!-- footer -->
 <footer>
@@ -435,9 +416,6 @@ body.no-scroll {
     ©とある東京の役者
   </div>
 </footer>
-
-
-
 
 <script>
 // オープニング
