@@ -69,11 +69,11 @@ body.no-scroll {
     overflow: hidden;
 }
 
-/* 3Dステージ & キューブエリア */
+/* 3Dキューブ*/
 .scene {
-    width: 220px;
-    height: 220px;
-    margin: 40px auto 50px auto;
+    width: 250px;
+    height: 250px;
+    margin: 100px auto 150px auto;
     perspective: 800px;
     user-select: none;
     cursor: grab;
@@ -93,8 +93,8 @@ body.no-scroll {
 
 .face {
     position: absolute;
-    width: 220px;
-    height: 220px;
+    width: 250px;
+    height: 250px;
     border: 2px solid rgba(255, 255, 255, 0.8);
     box-sizing: border-box;
     background: #111;
@@ -111,12 +111,12 @@ body.no-scroll {
     pointer-events: none;
 }
 
-.front  { transform: rotateY(0deg) translateZ(110px); }
-.back   { transform: rotateY(180deg) translateZ(110px); }
-.right  { transform: rotateY(90deg) translateZ(110px); }
-.left   { transform: rotateY(-90deg) translateZ(110px); }
-.top    { transform: rotateX(90deg) translateZ(110px); }
-.bottom { transform: rotateX(-90deg) translateZ(110px); }
+.front  { transform: rotateY(0deg) translateZ(125px); }
+.back   { transform: rotateY(180deg) translateZ(125px); }
+.right  { transform: rotateY(90deg) translateZ(125px); }
+.left   { transform: rotateY(-90deg) translateZ(125px); }
+.top    { transform: rotateX(90deg) translateZ(125px); }
+.bottom { transform: rotateX(-90deg) translateZ(125px); }
 
 /* モーダル（ポップアップ） */
 .modal {
@@ -183,7 +183,7 @@ body.no-scroll {
         height: 150px !important;
     }
     .scene {
-        margin: 30px auto 40px auto !important;
+        margin: 90px auto 90px auto;
         perspective: 500px !important;
     }
 
@@ -195,9 +195,8 @@ body.no-scroll {
     .bottom { transform: rotateX(-90deg) translateZ(75px) !important; }
 }
 
-/* PC（枠線を元通り戻しました） */
 @media screen and (min-width: 769px) {
-    .mainSwiper { max-width: 50% !important; }
+    .mainSwiper { max-width: 40% !important; }
     .swiper-slide { border: 20px solid #ffffff; }
 }
 
@@ -240,7 +239,7 @@ body.no-scroll {
 /* スワイパー */
 .mainSwiper {
     width: 70%;
-    max-width: 80%; 
+    max-width: 100%; 
     margin: 0 auto 40px auto;
     position: relative;
     overflow: visible;
@@ -251,8 +250,8 @@ body.no-scroll {
     transition: transform 0.5s, opacity 0.5s, filter 0.5s;
     position: relative;
     overflow: hidden;
-    border: 5px solid #ffffff; /* 枠線を復活 */
-    background: #000000; /* 背景を黒にして白い背景画像チラつきを防止 */
+    border: 5px solid #ffffff;
+    background: #000000;
     box-sizing: border-box;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     cursor: pointer;
@@ -269,7 +268,7 @@ body.no-scroll {
     height: 100%;
     object-fit: cover;
     display: block;
-    background-color: #000; /* 動画読み込み前も黒にする */
+    background-color: #000;
 }
 
 /* スライド説明 */
@@ -347,6 +346,8 @@ body.no-scroll {
   <img src="common/images/member.webp" style="width: 100%; height: auto; display: block;">
 </div>
 
+
+
 <!-- 3Dキューブ -->
 <div class="scene" id="scene">
   <div class="cube" id="cube">
@@ -359,12 +360,16 @@ body.no-scroll {
   </div>
 </div>
 
+
+
 <!-- ポップアップ -->
 <div id="imageModal" class="modal">
   <span class="modal-close" id="modalClose">&times;</span>
   <img class="modal-content" id="modalImg" src="" alt="拡大画像" style="display: none;">
   <video class="modal-content" id="modalVideo" controls style="display: none;"></video>
 </div>
+
+
 
 <!-- メインスワイパー（preload="auto"を追加） -->
 <div class="swiper mainSwiper">
@@ -398,6 +403,8 @@ body.no-scroll {
 
 <hr style="border: none; border-top: 1px solid #ddd; width: 100%; margin: 0;">
 
+
+
 <!-- メール送信 -->
 <div style="text-align: center; margin-top: 20px;">
   【出演依頼、コラボのご依頼などはこちらから】<br>
@@ -405,10 +412,14 @@ body.no-scroll {
   <button onclick="copyEmail()" class="button" style="margin-top: 10px; margin-bottom: 5px;"><b>アドレスをコピー</b></button>
 </div>
 
+
+
 <!-- 上に戻る -->
 <div align="right" style="margin: 20px 10px;">
   <a href="#header" style="text-decoration: none; color:#2b2b2b;">ページ上に戻る ▲</a>
 </div>
+
+
 
 <!-- footer -->
 <footer>
@@ -416,6 +427,9 @@ body.no-scroll {
     ©とある東京の役者
   </div>
 </footer>
+
+
+
 
 <script>
 // オープニング
@@ -474,8 +488,8 @@ function resetIdleTimer() {
 
 function updateCube() {
     if (isAutoRotating && !isDragging) {
-        targetRotX = 0;
-        targetRotY += 0.15;
+        targetRotX -= 0.05;
+        targetRotY += 0.08;
     }
 
     rotX += (targetRotX - rotX) * 0.1;
@@ -607,6 +621,23 @@ function closeModal() {
         modalVideo.pause();
         modalVideo.currentTime = 0;
     }
+
+    if (typeof mainSwiper !== 'undefined' && mainSwiper.slides) {
+        const activeSlide = mainSwiper.slides[mainSwiper.activeIndex];
+        if (activeSlide) {
+            const activeVideo = activeSlide.querySelector('video');
+            if (activeVideo) {
+                activeVideo.muted = true;
+                
+                const btnImg = activeSlide.querySelector('.mute-btn img');
+                if (btnImg) {
+                    btnImg.src = 'common/images/icon/spkoff.png';
+                }
+
+                activeVideo.play().catch(err => console.warn("動画再生エラー:", err));
+            }
+        }
+    }
     resetIdleTimer();
 }
 
@@ -614,6 +645,9 @@ modalClose.addEventListener('click', closeModal);
 modal.addEventListener('click', (e) => {
     if (e.target === modal) closeModal();
 });
+
+
+
 
 // --------------------------------------------------
 // プロフィール & スワイパー制御
@@ -668,45 +702,47 @@ function updateDescription(index) {
     }, 300);
 }
 
-const swiperVideos = document.querySelectorAll('.mainSwiper video');
-const mainSwiper = new Swiper(".mainSwiper", {
-    effect: "coverflow",
-    grabCursor: true,
-    centeredSlides: true,
-    slidesPerView: "auto",
-    loop: false, 
-    initialSlide: 2,
-    spaceBetween: -50,
-    coverflowEffect: {
-        rotate: 40,
-        stretch: 0,
-        depth: 700,
-        modifier: 1,
-        slideShadows: true,
-        scale: 0.8,
-    },
-    on: {
-        init: function () {
-            renderContent(this.initialSlide);
-            if (descEl) descEl.classList.remove('fade-out');
+    // メインSwiper
+    const swiperVideos = document.querySelectorAll('.mainSwiper video');
+    const mainSwiper = new Swiper(".mainSwiper", {
+        effect: "coverflow",
+        grabCursor: true,
+        centeredSlides: true,
+        slidesPerView: "auto",
+        loop: false, 
+        initialSlide: 2,
+        spaceBetween: -50,
+        coverflowEffect: {
+            rotate: 40,
+            stretch: 0,
+            depth: 700,
+            modifier: 1,
+            slideShadows: true,
+            scale: 0.8,
         },
-        slideChange: function () {
-            swiperVideos.forEach(v => {
-                v.muted = true;
-                v.pause();
-                v.currentTime = 0;
-                const btn = v.closest('.swiper-slide').querySelector('.mute-btn img');
-                if (btn) btn.src = 'common/images/icon/spkoff.png';
-            });
-            const activeSlide = this.slides[this.activeIndex];
-            const activeVideo = activeSlide ? activeSlide.querySelector('video') : null;
-            if (activeVideo) {
-                activeVideo.play().catch(e => console.warn("再生中断:", e));
+        on: {
+            init: function () {
+                if (descEl) {
+                    descEl.innerHTML = descriptions[this.initialSlide] || descriptions[0];
+                }
+            },
+            slideChange: function () {
+                swiperVideos.forEach(v => {
+                    v.muted = true;
+                    v.pause();
+                    v.currentTime = 0;
+                    const btn = v.closest('.swiper-slide').querySelector('.mute-btn img');
+                    if (btn) btn.src = 'common/images/icon/spkoff.png';
+                });
+                const activeSlide = this.slides[this.activeIndex];
+                const activeVideo = activeSlide.querySelector('video');
+                if (activeVideo) {
+                    activeVideo.play().catch(e => console.warn("再生中断:", e));
+                }
+                updateDescription(this.activeIndex);
             }
-            updateDescription(this.activeIndex);
         }
-    }
-});
+    });
 
 document.querySelectorAll('.mainSwiper .swiper-slide').forEach(slide => {
     slide.addEventListener('click', (e) => {
@@ -714,6 +750,8 @@ document.querySelectorAll('.mainSwiper .swiper-slide').forEach(slide => {
 
         const video = slide.querySelector('video');
         if (video && modalVideo) {
+            video.pause();
+
             modalImg.style.display = 'none';
 
             modalVideo.src = video.currentSrc || video.src;
@@ -730,6 +768,10 @@ document.querySelectorAll('.mainSwiper .swiper-slide').forEach(slide => {
     });
 });
 
+
+
+
+ // メール
 function copyEmail() {
     const emailText = "info.tokyoactor@gmail.com";
     navigator.clipboard.writeText(emailText).then(() => {
