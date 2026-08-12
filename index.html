@@ -24,9 +24,9 @@ html, body {
     overflow-x: hidden;
     margin: 0;
     padding: 0;
-    background-color: #ffffff;
     color: #5a5a5a;
 }
+
 
 .full-width {
     width: 100%;
@@ -67,6 +67,38 @@ html, body {
 
 body.no-scroll {
     overflow: hidden;
+}
+
+.video-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.video-bg::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8); 
+    pointer-events: none; 
+}
+
+.video-bg video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+
+.content {
+    position: relative;
+    z-index: 1;
 }
 
 /* 3Dキューブ*/
@@ -315,35 +347,24 @@ body.no-scroll {
   <div class="opening-text">とある東京の役者</div>
 </div>
 
+<div class="video-bg">
+  <video autoplay loop muted playsinline>
+    <source src="common/videos/tb.mp4" type="video/mp4">
+  </video>
+</div>
+
+
+
 <!-- header -->
-<div id="header" align="center" valign="middle">
+<div id="header" align="center" valign="middle" style="background-color: white; padding: 5px 0;">
   <img src="common/images/icon.png" style="width: 50px; height: auto; display: block;">
   <span class="maintitle full-width" style="color:#555555; font-size:20px; font-family:'Yu Mincho';">
     とある東京の役者
   </span>
 </div>
 
-<!-- メイン動画 -->
-<video autoplay muted loop playsinline controls style="width: 100%; height: auto; display: block;">
-  <source src="common/videos/cm.mp4" type="video/mp4">
-</video>
 
-<!-- SNS -->
-<div class="full-width">
-  <div style="background-color: #607180; padding: 10px; text-align: center;">
-    <span style="color: #bba483; font-family: 'Yu Mincho', serif; letter-spacing: 0.15em;">Various SNS</span>
-  </div>
-  <div style="background-color: #607180; padding-bottom: 45px;">
-    <div style="background-color: #ffffff; width: 100%; padding: 15px 0; display: flex; justify-content: center; align-items: center; gap: 10px;">
-      <a href="https://www.tiktok.com/@infotokyoactor" target="_blank" rel="noopener noreferrer">
-        <img src="common/images/tiktok.png" alt="TikTok" style="width: 50px; height: 50px; object-fit: cover;" />
-      </a>
-      <a href="https://x.com/infotokyoactor" target="_blank" rel="noopener noreferrer">
-        <img src="common/images/x.png" alt="X" style="width: 50px; height: 50px; object-fit: cover;" />
-      </a>
-    </div>
-  </div>
-</div>
+
 
 
 
@@ -402,7 +423,27 @@ body.no-scroll {
   <div id="slide-description" class="slide-description"></div>
 </div>
 
-<hr style="border: none; border-top: 1px solid #ddd; width: 100%; margin: 0;">
+
+
+<!-- SNS -->
+<div class="full-width">
+<div style="background-color: #607180; padding: 10px; text-align: center;">
+<span style="color: #bba483; font-family: 'Yu Mincho', serif; letter-spacing: 0.15em;">Various SNS</span>
+</div>
+<div style="background-color: #607180; padding-bottom: 45px;">
+<div style="background-color: #ffffff; width: 100%; padding: 15px 0; display: flex; justify-content: center; align-items: center; gap: 10px;">
+    <a href="https://www.tiktok.com/@infotokyoactor" target="_blank" rel="noopener noreferrer">
+    <img src="common/images/tiktok.png" alt="TikTok" style="width: 50px; height: 50px; object-fit: cover;" />
+    </a>
+    <a href="https://x.com/infotokyoactor" target="_blank" rel="noopener noreferrer">
+    <img src="common/images/x.png" alt="X" style="width: 50px; height: 50px; object-fit: cover;" />
+    </a>
+    <a href="https://www.threads.com/@infotokyoactor?hl=ja" target="_blank" rel="noopener noreferrer">
+    <img src="common/images/threads.png" alt="threads" style="width: 50px; height: 50px; object-fit: cover;" />
+    </a>
+    </div>
+  </div>
+</div>
 
 
 
