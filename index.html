@@ -449,13 +449,15 @@ body.no-scroll {
 
 
 <!-- メール送信 -->
-<div style="text-align: center; margin-top: 20px;">
+<div style="text-align: center; margin: 20px;">
   【出演依頼、コラボのご依頼などはこちらから】<br>
   <a href="mailto:info.tokyoactor@gmail.com" target="_blank" class="button"><b>メールを送る</b></a><br>
-  <button onclick="copyEmail()" class="button" style="margin-top: 10px; margin-bottom: 0px;"><b>アドレスをコピー</b></button>
 </div>
 
-
+<!-- スケジュール -->
+<div style="text-align:center">
+<iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Asia%2FTokyo&showPrint=0&showTz=0&title=%E3%81%A8%E3%81%82%E3%82%8B%E3%81%AE%E3%82%B9%E3%82%B1%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB&showTabs=0&showNav=0&showCalendars=0&src=ZWVkZmYwNGZhZGE3Nzk2YTFkNmNkNWQwNTYwYTNlZTgzYTY0OTBjMmYwNjUwYjNhZjlkMzE5ZjQzZjEyZTQ1MkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%238e24aa" style="border:solid 1px #777" width="90%" height="500px" frameborder="0" scrolling="no"></iframe>
+</div>
 
 <!-- 上に戻る -->
 <div align="right" style="margin: 20px 10px;">
@@ -723,7 +725,7 @@ const descriptions = [
 </div><br>
 <div class='slide-title1'>生年月日:2002年2月18日(<span id="my-age"></span>歳)<br>血液型：AB型<br>出身地：広島県<br>MBTI：ENFP<br>好きな食べ物：数の子</div><br>
 <a href='https://www.instagram.com/2tabii_mitsuki18/?hl=ja' target='_blank' rel='noopener noreferrer' style='color:#E4405F; text-decoration:none; display:inline-flex; align-items:center; gap:4px; display: block; text-align: center;'>
-    <img src='common/images/instagram.png' alt='Instagram' style='width:30px;'>
+    <img src='common/images/instagram.png' alt='Instagram' style='width:50px;'>
 </a>
     `,
     `
@@ -733,7 +735,7 @@ const descriptions = [
 </div><br>
 <div class='slide-title1'>生年月日:1989年3月28日(<span id="my-age"></span>歳)<br>血液型：O型<br>出身地：大阪府<br>MBTI：ESFP-A<br>好きな食べ物：しめ鯖</div><br>
 <a href='https://www.instagram.com/yusuke_kuwata/?hl=ja' target='_blank' rel='noopener noreferrer' style='color:#E4405F; text-decoration:none; display:inline-flex; align-items:center; gap:4px; display: block; text-align: center;'>
-    <img src='common/images/instagram.png' alt='Instagram' style='width:30px;'>
+    <img src='common/images/instagram.png' alt='Instagram' style='width:50px;'>
 </a>
     `,
     `
@@ -743,7 +745,7 @@ const descriptions = [
 </div><br>
 <div class='slide-title1'>生年月日:1996年1月30日(<span id="my-age"></span>歳)<br>血液型：B型<br>出身地：京都府<br>MBTI：ENFJ<br>好きな食べ物：馬刺し</div><br>
 <a href='https://www.instagram.com/higutakumin/?hl=ja' target='_blank' rel='noopener noreferrer' style='color:#E4405F; text-decoration:none; display:inline-flex; align-items:center; gap:4px; display: block; text-align: center;'>
-    <img src='common/images/instagram.png' alt='Instagram' style='width:30px;'>
+    <img src='common/images/instagram.png' alt='Instagram' style='width:50px;'>
 </a>
     `,
     `
@@ -753,7 +755,7 @@ const descriptions = [
 </div><br>
 <div class='slide-title1'>生年月日:1999年9月20日(<span id="my-age"></span>歳)<br>血液型：O型<br>出身地：京都府<br>MBTI：ENTJ<br>好きな食べ物：寿司</div><br>
 <a href='https://www.instagram.com/seeeei_toooo920/?hl=ja' target='_blank' rel='noopener noreferrer' style='color:#E4405F; text-decoration:none; display:inline-flex; align-items:center; gap:4px; display: block; text-align: center;'>
-    <img src='common/images/instagram.png' alt='Instagram' style='width:30px;'>
+    <img src='common/images/instagram.png' alt='Instagram' style='width:50px;'>
 </a>
     `,
     `
@@ -763,7 +765,7 @@ const descriptions = [
 </div><br>
 <div class='slide-title1'>生年月日:マカロン〇個分<br>血液型：A型<br>出身地：和歌山県<br>MBTI：INTJ<br>好きな食べ物：チョコレート</div><br>
 <a href='https://www.instagram.com/infotokyoactor/?hl=ja' target='_blank' rel='noopener noreferrer' style='color:#E4405F; text-decoration:none; display:inline-flex; align-items:center; gap:4px; display: block; text-align: center;'>
-    <img src='common/images/instagram.png' alt='Instagram' style='width:30px; height:30px;'>
+    <img src='common/images/instagram.png' alt='Instagram' style='width:50px; height:30px;'>
 </a>
 
     `
@@ -857,18 +859,6 @@ document.querySelectorAll('.mainSwiper .swiper-slide').forEach(slide => {
     });
 });
 
-
-
-
- // メール
-function copyEmail() {
-    const emailText = "info.tokyoactor@gmail.com";
-    navigator.clipboard.writeText(emailText).then(() => {
-        alert("メールアドレスをコピーしました：\n" + emailText);
-    }).catch(err => {
-        console.error("コピー失敗:", err);
-    });
-}
 </script>
 
 </body>
