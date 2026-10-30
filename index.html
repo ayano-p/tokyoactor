@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redirecting...</title>
+    <link rel="icon" href="common/images/icon.png" type="image/png">
+    <link rel="apple-touch-icon" href="common/images/icon.png">
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -26,7 +29,7 @@
         /* Logo reveal and floating animation */
         .logo-container {
             animation: fadeInScale 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards,
-                       float 3s ease-in-out infinite 1.2s;
+                        float 3s ease-in-out infinite 1.2s;
             opacity: 0;
             transform: scale(0.85) translateY(10px);
         }
@@ -53,7 +56,7 @@
             transform: scale(1.03);
         }
 
-        /* Fade-in animation for text and button */
+        /* Fade-in animation for text */
         .fade-in-delayed {
             animation: fadeIn 0.8s ease-out 0.6s forwards;
             opacity: 0;
@@ -61,17 +64,6 @@
 
         @keyframes fadeIn {
             to { opacity: 1; }
-        }
-
-        /* Progress loader bar */
-        .progress-bar {
-            width: 0%;
-            animation: loadProgress 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-        }
-
-        @keyframes loadProgress {
-            0% { width: 0%; }
-            100% { width: 100%; }
         }
     </style>
 </head>
@@ -103,28 +95,43 @@
                 Transition to ...
             </p>
 
-            <!-- Progress bar container -->
-            <div class="w-56 h-1.5 bg-slate-100 rounded-full overflow-hidden mb-8 shadow-inner border border-slate-200/60">
-                <div class="progress-bar h-full bg-gradient-to-r from-amber-500 to-orange-500 rounded-full"></div>
+            <!-- Percent Text Display (Serif & Light Font) -->
+            <div class="text-xl font-serif font-light text-slate-700 tracking-widest mb-8">
+                <span id="percent-text">0%</span>
             </div>
         </div>
 
     </main>
 
-    <!-- Auto-redirection script -->
+    <!-- Auto-redirection & Counter script -->
     <script>
         const TARGET_URL = "https://ayano-p.github.io/infotokyoactor/";
         const REDIRECT_DELAY_MS = 2500; // Delay before redirection (2.5s)
 
-        // Function to handle redirection
-        function redirectToTarget() {
-            window.location.href = TARGET_URL;
+        // Count up percentage to 100%
+        function startCountUp() {
+            const percentElement = document.getElementById('percent-text');
+            const startTime = performance.now();
+
+            function updateCount(currentTime) {
+                const elapsedTime = currentTime - startTime;
+                const progress = Math.min(elapsedTime / REDIRECT_DELAY_MS, 1);
+                const currentPercent = Math.floor(progress * 100);
+
+                percentElement.textContent = `${currentPercent}%`;
+
+                if (progress < 1) {
+                    requestAnimationFrame(updateCount);
+                } else {
+                    window.location.href = TARGET_URL;
+                }
+            }
+
+            requestAnimationFrame(updateCount);
         }
 
-        // Set timer for auto redirection
-        window.addEventListener('DOMContentLoaded', () => {
-            setTimeout(redirectToTarget, REDIRECT_DELAY_MS);
-        });
+        // Start counter on DOM content load
+        window.addEventListener('DOMContentLoaded', startCountUp);
     </script>
 </body>
 </html>
