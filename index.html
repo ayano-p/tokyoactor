@@ -1,901 +1,130 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="とある東京の役者です、俳優、とある東京の役者の日常、ショート動画、ドラマ、映画">
-<meta name="keywords" content="とある東京の役者/俳優/芸能/ショートドラマ/カメラマン/TikTok/映画/映像/日常/ギャグ/ショート動画">
-<title>とある東京の役者</title>
-<link rel="icon" href="common/images/favicon.ico" type="image/ico">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Ambient background floating glow elements */
+        .glow-bg {
+            position: absolute;
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, rgba(255, 255, 255, 0) 70%);
+            filter: blur(40px);
+            animation: pulseGlow 4s infinite alternate ease-in-out;
+        }
 
-<style>
-/* 全体 */
-body, table, td, h1, span, div, p {
-    font-family: 'Noto Serif JP', "Yu Mincho", "YuMincho", serif !important;
-}
+        @keyframes pulseGlow {
+            0% { transform: scale(0.8) translate(-10px, -10px); opacity: 0.5; }
+            100% { transform: scale(1.2) translate(10px, 10px); opacity: 0.9; }
+        }
 
-html, body {
-    overflow-x: hidden;
-    margin: 0;
-    padding: 0;
-    color: #5a5a5a;
-}
+        /* Logo reveal and floating animation */
+        .logo-container {
+            animation: fadeInScale 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards,
+                       float 3s ease-in-out infinite 1.2s;
+            opacity: 0;
+            transform: scale(0.85) translateY(10px);
+        }
 
+        @keyframes fadeInScale {
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
 
-.full-width {
-    width: 100%;
-    box-sizing: border-box;
-    font-size: 25px;
-}
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
 
-/* オープニング */
-#opening-mask {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #fcfcfc;
-    z-index: 99999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 1;
-    transition: opacity 0.8s ease-in-out, visibility 0.8s;
-}
+        /* Subtle drop shadow/glow for the icon image */
+        .icon-glow {
+            filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.08));
+            transition: filter 0.3s ease, transform 0.3s ease;
+        }
+        .icon-glow:hover {
+            filter: drop-shadow(0 18px 36px rgba(99, 102, 241, 0.22));
+            transform: scale(1.03);
+        }
 
-.opening-text {
-    font-size: clamp(32px, 6vw, 60px);
-    color: #555555;
-    font-family: 'Yu Mincho', serif;
-    letter-spacing: 0.1em;
-    opacity: 0;
-    transform: translateY(10px);
-    animation: fadeInUp 1.2s ease-out forwards;
-}
+        /* Fade-in animation for text and button */
+        .fade-in-delayed {
+            animation: fadeIn 0.8s ease-out 0.6s forwards;
+            opacity: 0;
+        }
 
-@keyframes fadeInUp {
-    0% { opacity: 0; transform: translateY(10px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
 
-body.no-scroll {
-    overflow: hidden;
-}
+        /* Progress loader bar */
+        .progress-bar {
+            width: 0%;
+            animation: loadProgress 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
 
-.video-bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -1;
-    overflow: hidden;
-}
-
-.video-bg::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.8); 
-    pointer-events: none; 
-}
-
-.video-bg video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; 
-}
-
-.content {
-    position: relative;
-    z-index: 1;
-}
-
-/* 3Dキューブ*/
-.scene {
-    width: 250px;
-    height: 250px;
-    margin: 100px auto 150px auto;
-    perspective: 800px;
-    user-select: none;
-    cursor: grab;
-    touch-action: none;
-}
-
-.scene:active {
-    cursor: grabbing;
-}
-
-.cube {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    transform-style: preserve-3d;
-}
-
-.face {
-    position: absolute;
-    width: 250px;
-    height: 250px;
-    border: 2px solid rgba(255, 255, 255, 0.8);
-    box-sizing: border-box;
-    background: #111;
-    cursor: pointer;
-    backface-visibility: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
-
-.face img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    pointer-events: none;
-}
-
-.front  { transform: rotateY(0deg) translateZ(125px); }
-.back   { transform: rotateY(180deg) translateZ(125px); }
-.right  { transform: rotateY(90deg) translateZ(125px); }
-.left   { transform: rotateY(-90deg) translateZ(125px); }
-.top    { transform: rotateX(90deg) translateZ(125px); }
-.bottom { transform: rotateX(-90deg) translateZ(125px); }
-
-/* モーダル（ポップアップ） */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 999999;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.85);
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.modal.show {
-    display: flex;
-    opacity: 1;
-}
-
-.modal-content {
-    max-width: 90%;
-    max-height: 85vh;
-    border-radius: 8px;
-    box-shadow: 0 5px 25px rgba(0,0,0,0.5);
-    object-fit: contain;
-}
-
-.modal-close {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    color: #ffffff;
-    font-size: 40px;
-    font-weight: bold;
-    cursor: pointer;
-    user-select: none;
-    transition: color 0.3s;
-    z-index: 1000000;
-}
-
-.modal-close:hover {
-    color: #fa7a18;
-}
-
-/* スマホ仕様 */
-@media (max-width: 767px) {
-    .title { font-size: 20px!important; display: block!important; }
-    .maintitle { font-size: 10px!important; display: block!important; }
-    
-    .button {
-        font-size: 12px !important;
-        font-family: "游明朝", YuMincho, serif;
-    }
-    .full-width {
-        width: 100%;
-        font-size: 20px;
-    }
-
-    .scene, .face {
-        width: 150px !important;
-        height: 150px !important;
-    }
-    .scene {
-        margin: 90px auto 90px auto;
-        perspective: 500px !important;
-    }
-
-    .front  { transform: rotateY(0deg) translateZ(75px) !important; }
-    .back   { transform: rotateY(180deg) translateZ(75px) !important; }
-    .right  { transform: rotateY(90deg) translateZ(75px) !important; }
-    .left   { transform: rotateY(-90deg) translateZ(75px) !important; }
-    .top    { transform: rotateX(90deg) translateZ(75px) !important; }
-    .bottom { transform: rotateX(-90deg) translateZ(75px) !important; }
-    .opening-text {
-    font-size: clamp(25px, 6vw, 60px);
-}   
-}
-
-@media screen and (min-width: 769px) {
-    .mainSwiper { max-width: 40% !important; }
-    .swiper-slide { border: 20px solid #ffffff; }
-}
-
-/* リンクボタン */
-.button {
-    padding: 10px 30px;
-    background: linear-gradient(#a89dac,#595857);
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 15px;
-    margin: 10px 0; 
-    color: white;
-    border-radius: 5px;
-    border: none;
-    transition: 1.0s;
-    cursor: pointer;
-    font-family: "游明朝", YuMincho, serif;
-}
-.button:hover {
-    color: white;
-    background: #607180;
-}
-
-/* ミュートボタン */
-.mute-btn {
-    position: absolute !important;
-    top: 10px !important;
-    right: 10px !important;
-    z-index: 1000 !important;
-    display: block !important;
-    background: rgba(0, 0, 0, 0.6) !important;
-    color: #fff !important;
-    border-radius: 10px !important;
-    padding: 5px 8px !important;
-    cursor: pointer !important;
-    border: none;
-}
-
-/* スワイパー */
-.mainSwiper {
-    width: 70%;
-    max-width: 100%; 
-    margin: 0 auto 40px auto;
-    position: relative;
-    overflow: visible;
-}
-.swiper-slide {
-    width: 500px;
-    height: 300px;
-    transition: transform 0.5s, opacity 0.5s, filter 0.5s;
-    position: relative;
-    overflow: hidden;
-    border: 5px solid #ffffff;
-    background: #000000;
-    box-sizing: border-box;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-}
-.mainSwiper .swiper-slide {
-    width: 90%;
-    max-width: 650px;
-    height: auto;
-    aspect-ratio: 1 / 1;
-}
-
-.swiper-slide video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    background-color: #000;
-}
-
-/* スライド説明 */
-.slide-description-container {
-    width: 90%;
-    max-width: 650px;
-    margin: 0 auto 30px auto;
-    text-align: left;
-    min-height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid #948171;
-    background: #607180;
-    border-radius: 8px;
-    padding: 15px 20px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    box-sizing: border-box;
-}
-
-.slide-description {
-    color: #ffffff;
-    font-size: 15px;
-    line-height: 1.6;
-    transition: opacity 0.3s ease;
-    opacity: 1;
-    width: 100%;
-}
-
-.slide-description .slide-title { font-size: 18px; font-weight: bold; color: #bba483; margin-bottom: 6px; display: block; }
-.slide-description .slide-title1 { font-size: 15px; font-weight: bold; color: #bba483; margin-bottom: 6px; display: block; }
-.slide-description .slide-title2 { font-size: 13px; font-weight: bold; color: #bba483; margin-bottom: 6px; display: block; }
-.slide-description.fade-out { opacity: 0; }
-</style>
+        @keyframes loadProgress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+    </style>
 </head>
+<body class="bg-white text-slate-800 min-h-screen flex flex-col items-center justify-center relative overflow-hidden font-sans select-none">
 
-<body>
+    <!-- Glowing background elements -->
+    <div class="glow-bg top-1/4 left-1/4"></div>
+    <div class="glow-bg bottom-1/4 right-1/4" style="animation-delay: -2s; background: radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, rgba(255, 255, 255, 0) 70%);"></div>
 
-<!-- オープニング -->
-<div id="opening-mask">
-  <div class="opening-text">とある東京の役者</div>
-</div>
+    <!-- Main Content -->
+    <main class="relative z-10 flex flex-col items-center text-center p-6 max-w-md w-full">
+        
+        <!-- Clickable Icon container -->
+        <a id="redirect-link" href="https://ayano-p.github.io/infotokyoactor/" class="logo-container block mb-8 cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-3xl p-2 transition">
+            <img 
+                src="common/images/icon.png" 
+                alt="Logo" 
+                class="w-48 h-48 md:w-60 md:h-60 object-contain icon-glow rounded-3xl"
+                onerror="this.onerror=null; this.src='https://placehold.co/240x240/f8fafc/6366f1?text=Icon';"
+            />
+        </a>
 
-<div class="video-bg">
-  <video autoplay loop muted playsinline>
-    <source src="common/videos/tb.mp4" type="video/mp4">
-  </video>
-</div>
+        <!-- Redirect Message & Loader -->
+        <div class="fade-in-delayed w-full flex flex-col items-center">
+            <h1 class="text-2xl font-light tracking-wide text-slate-900 mb-2 font-serif">
+                とある東京の役者
+            </h1>
+            <p class="text-xs text-slate-500 mb-6 tracking-wider font-medium">
+                Transition to ...
+            </p>
 
+            <!-- Progress bar container -->
+            <div class="w-56 h-1.5 bg-slate-100 rounded-full overflow-hidden mb-8 shadow-inner border border-slate-200/60">
+                <div class="progress-bar h-full bg-gradient-to-r from-amber-500 to-orange-500 rounded-full"></div>
+            </div>
+        </div>
 
+    </main>
 
-<!-- header -->
-<div id="header" align="center" valign="middle;">
-  <img src="common/images/icon.png" style="width: 50px; height: auto; display: block;">
-  <span class="maintitle full-width" style="color:#555555; font-size:20px; font-family:'Yu Mincho';">
-    とある東京の役者
-  </span>
-</div>
-<hr style="border: none; border-top: 1px solid #ddd; width: 100%; margin: 0px auto;">
+    <!-- Auto-redirection script -->
+    <script>
+        const TARGET_URL = "https://ayano-p.github.io/infotokyoactor/";
+        const REDIRECT_DELAY_MS = 2500; // Delay before redirection (2.5s)
 
-
-
-
-
-
-
-
-<!-- 3Dキューブ -->
-<div class="scene" id="scene">
-  <div class="cube" id="cube">
-    <div class="face front"><img src="common/images/favicon.png" alt="アイコン"></div>
-    <div class="face back"><img src="common/images/ayano.webp" alt="アヤノアキラ"></div>
-    <div class="face right"><img src="common/images/seitotachibana.webp" alt="橘星音"></div>
-    <div class="face left"><img src="common/images/takumahiguchi.webp" alt="樋口拓馬"></div>
-    <div class="face top"><img src="common/images/yusukekuwata.webp" alt="桑田裕介"></div>
-    <div class="face bottom"><img src="common/images/mitsukitabii.webp" alt="足袋井海月"></div>
-  </div>
-</div>
-
-
-
-<!-- ポップアップ -->
-<div id="imageModal" class="modal">
-  <span class="modal-close" id="modalClose">&times;</span>
-  <img class="modal-content" id="modalImg" src="" alt="拡大画像" style="display: none;">
-  <video class="modal-content" id="modalVideo" controls style="display: none;"></video>
-</div>
-
-
-
-<!-- メインスワイパー -->
-<div class="swiper mainSwiper">
-  <div class="swiper-wrapper">
-    <div class="swiper-slide">
-      <button class="mute-btn" onclick="toggleMute(this);"><img src="common/images/icon/spkoff.png" alt="スピーカー" style="width: 20px;"></button>
-      <video src="common/videos/l2.mp4" autoplay muted loop playsinline preload="auto"></video>
-    </div>
-    <div class="swiper-slide">
-      <button class="mute-btn" onclick="toggleMute(this);"><img src="common/images/icon/spkoff.png" alt="スピーカー" style="width: 20px;"></button>
-      <video src="common/videos/l1.mp4" autoplay muted loop playsinline preload="auto"></video>
-    </div>
-    <div class="swiper-slide">
-      <button class="mute-btn" onclick="toggleMute(this);"><img src="common/images/icon/spkoff.png" alt="スピーカー" style="width: 20px;"></button>
-      <video src="common/videos/c.mp4" autoplay muted loop playsinline preload="auto"></video>
-    </div>
-    <div class="swiper-slide">
-      <button class="mute-btn" onclick="toggleMute(this);"><img src="common/images/icon/spkoff.png" alt="スピーカー" style="width: 20px;"></button>
-      <video src="common/videos/r1.mp4" autoplay muted loop playsinline preload="auto"></video>
-    </div>
-    <div class="swiper-slide">
-      <button class="mute-btn" onclick="toggleMute(this);"><img src="common/images/icon/spkoff.png" alt="スピーカー" style="width: 20px;"></button>
-      <video src="common/videos/r2.mp4" autoplay muted loop playsinline preload="auto"></video>
-    </div>
-  </div>
-</div>
-
-<div class="slide-description-container">
-  <div id="slide-description" class="slide-description"></div>
-</div>
-
-
-
-<!-- SNS -->
-<div class="full-width">
-<div style="background-color: #607180; padding: 10px; text-align: center;">
-<span style="color: #bba483; font-family: 'Yu Mincho', serif; letter-spacing: 0.15em;">Various SNS</span>
-</div>
-<div style="background-color: #607180; padding-bottom: 45px;">
-<div style="background-color: #ffffff; width: 100%; padding: 15px 0; display: flex; justify-content: center; align-items: center; gap: 10px;">
-    <a href="https://www.youtube.com/@%E3%81%A8%E3%81%82%E3%82%8B%E6%9D%B1%E4%BA%AC%E3%81%AE%E5%BD%B9%E8%80%85" target="_blank" rel="noopener noreferrer">
-    <img src="common/images/youtube.png" alt="youtube" style="width: 50px; height: 50px; object-fit: cover;" />
-    </a>
-    <a href="https://www.tiktok.com/@infotokyoactor" target="_blank" rel="noopener noreferrer">
-    <img src="common/images/tiktok.png" alt="TikTok" style="width: 50px; height: 50px; object-fit: cover;" />
-    </a>
-    <a href="https://www.instagram.com/infotokyoactor/" target="_blank" rel="noopener noreferrer">
-    <img src="common/images/instagram.png" alt="instagram" style="width: 50px; height: 50px; object-fit: cover;" />
-    </a>
-    </div>
-  </div>
-</div>
-
-
-
-<!-- メール送信 -->
-<div style="text-align: center; margin: 20px;">
-  【出演依頼、コラボのご依頼などはこちらから】<br>
-  <a href="mailto:info.ayanosan@gmail.com" target="_blank" class="button"><b>メールを送る</b></a><br>
-</div>
-
-
-
-<!-- スケジュール -->
-<div class="full-width">
-<div style="background-color: #607180; padding: 10px; text-align: center;  margin-bottom: 30px;">
-<span style="color: #bba483; font-family: 'Yu Mincho', serif; letter-spacing: 0.15em;">とあるスケジュール<br>各出演情報</span>
-</div></div>
-
-
-<div style="background-color: #ffffff; padding: 10px; text-align: center; border-radius: 10px; border: 1px solid #bba483; max-width: 400px; width: 90%; margin: 0 auto 30px;">
-<span style="color: #bba483; font-family: 'Yu Mincho', serif; letter-spacing: 0.15em;">News</span>
-<hr style="border: none; border-top: 1px solid #ddd; width: 50%; margin: 0px auto;">
-<div style="padding: 10px; text-align: center; color:rgb(109, 108, 108); font-size:12px; height: 120px; overflow-y: auto;">
-
-
-
-    
-<div style="margin-bottom: 15px; display: inline-block;">
-<p style="font-size: 17px; text-align: center; margin: 5px 0 5px 0;">【セイト】出演情報追加</p>
-劇団わNew Session公演<br>
-『バック・トゥ・ザ・君の笑顔』<br>
-9月17日〜9月27日 中目黒<br>
-</div>
-<hr style="border: none; border-top: 1px solid #ddd; width: 80%; margin: 10px auto;">
-
-<div style="margin-bottom: 15px; display: inline-block;">
-<p style="font-size: 17px; text-align: center; margin: 5px 0 5px 0;">【TikTok】一作目UP</p>
-8月19日 19:00<br>
-</div>
-
-</div>
-</div>
-
-
-<!-- カレンダー -->
-<div style="text-align:center">
-<iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Asia%2FTokyo&showPrint=0&showTz=0&src=ZWVkZmYwNGZhZGE3Nzk2YTFkNmNkNWQwNTYwYTNlZTgzYTY0OTBjMmYwNjUwYjNhZjlkMzE5ZjQzZjEyZTQ1MkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=MzI5NmVkOTBmZmZlOTFjYzc3NmI4MDNkZDc0NDE3ZDlmODM3ZDUzMjhjOGFiNGJlNzZhYmJmMTcxYmJkODRkNEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=NGJkZmQyYjJjZjdmNDdkODU3YmUzODAxMGEwNjQ2YTI0NDkwYWM3NDQ0N2MzZTg2YzNiNjM2ZGZhNzQ2ZjlkZkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=NmEwMmQzZTk1NTE1YTVjYmVjOGQ2MDdjYTJhOWMyMzI5YTkwMjQwN2NiNGIwY2MwMzUzMjIyZmNhZjg1Njc3ZUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=OGZmYzNjZGE4ODkxNDM2MjRhODFhN2I5OTE5YTU5YzRkYzFiMjEyNDVkYmRkMjZhMzFmMjA5ZmUyNjUxOTk1NUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23f4511e&color=%233f51b5&color=%23e4c441&color=%230b8043&color=%23a79b8e" style="border:solid 1px #777" width="90%" height="500px" frameborder="0" scrolling="no"></iframe>
-</div>
-
-
-
-<!-- 上に戻る -->
-<div align="right" style="margin: 20px 10px;">
-  <a href="#header" style="text-decoration: none; color:#2b2b2b;">ページ上に戻る ▲</a>
-</div>
-
-
-
-<!-- footer -->
-<footer>
-  <div style="background: #607180; padding: 15px; text-align: center; color:white; font-size:12px;">
-    ©とある東京の役者
-  </div>
-</footer>
-
-
-
-
-<script>
-// オープニング
-window.addEventListener('DOMContentLoaded', () => {
-    document.body.classList.add('no-scroll');
-    setTimeout(() => {
-        const mask = document.getElementById('opening-mask');
-        if (mask) {
-            mask.style.opacity = '0';
-            mask.style.visibility = 'hidden'; 
+        // Function to handle redirection
+        function redirectToTarget() {
+            window.location.href = TARGET_URL;
         }
-        document.body.classList.remove('no-scroll');
-    }, 1800); 
-});
 
-function toggleMute(btn) {
-    const v = btn.parentElement.querySelector('video');
-    const img = btn.querySelector('img');
-    if (v) {
-        v.muted = !v.muted;
-        if (img) {
-            img.src = v.muted ? 'common/images/icon/spkoff.png' : 'common/images/icon/spkon.png';
-        }
-    }
-}
-
-// --------------------------------------------------
-// 3Dキューブ制御スクリプト
-// --------------------------------------------------
-const scene = document.getElementById('scene');
-const cube = document.getElementById('cube');
-const modal = document.getElementById('imageModal');
-const modalImg = document.getElementById('modalImg');
-const modalVideo = document.getElementById('modalVideo');
-const modalClose = document.getElementById('modalClose');
-
-let rotX = 0, rotY = 0;
-let targetRotX = 0, targetRotY = 0;
-let isDragging = false;
-let isDraggedFar = false;
-let startX = 0, startY = 0;
-let lastX = 0, lastY = 0;
-let activeAxis = null;
-let idleTimer = null;
-let isAutoRotating = false;
-
-function resetIdleTimer() {
-    clearTimeout(idleTimer);
-    isAutoRotating = false;
-    idleTimer = setTimeout(() => {
-        targetRotX = Math.round(targetRotX / 90) * 90;
-        targetRotY = Math.round(targetRotY / 90) * 90;
-        isAutoRotating = true;
-    }, 1500);
-}
-
-function updateCube() {
-    if (isAutoRotating && !isDragging) {
-        targetRotX -= 0.05;
-        targetRotY += 0.08;
-    }
-
-    rotX += (targetRotX - rotX) * 0.1;
-    rotY += (targetRotY - rotY) * 0.1;
-
-    cube.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
-    requestAnimationFrame(updateCube);
-}
-
-resetIdleTimer();
-updateCube();
-
-function getPos(e) {
-    return {
-        x: e.touches ? e.touches[0].clientX : e.clientX,
-        y: e.touches ? e.touches[0].clientY : e.clientY
-    };
-}
-
-function onStart(e) {
-    isDragging = true;
-    isDraggedFar = false;
-    activeAxis = null;
-    clearTimeout(idleTimer);
-    isAutoRotating = false;
-
-    const pos = getPos(e);
-    startX = pos.x;
-    startY = pos.y;
-    lastX = pos.x;
-    lastY = pos.y;
-}
-
-function onMove(e) {
-    if (!isDragging) return;
-
-    const pos = getPos(e);
-    const deltaX = pos.x - lastX;
-    const deltaY = pos.y - lastY;
-    const totalDist = Math.hypot(pos.x - startX, pos.y - startY);
-
-    if (totalDist > 6) {
-        isDraggedFar = true;
-    }
-
-    if (!activeAxis && totalDist > 8) {
-        activeAxis = Math.abs(pos.x - startX) > Math.abs(pos.y - startY) ? 'y' : 'x';
-    }
-
-    if (activeAxis === 'y') {
-        targetRotY += deltaX * 0.6;
-        targetRotX = 0;
-    } else if (activeAxis === 'x') {
-        targetRotX -= deltaY * 0.6;
-        targetRotY = 0;
-    }
-
-    lastX = pos.x;
-    lastY = pos.y;
-}
-
-function onEnd() {
-    if (!isDragging) return;
-    isDragging = false;
-
-    if (activeAxis === 'y') {
-        targetRotY = Math.round(targetRotY / 90) * 90;
-    } else if (activeAxis === 'x') {
-        targetRotX = Math.round(targetRotX / 90) * 90;
-    } else {
-        targetRotX = Math.round(targetRotX / 90) * 90;
-        targetRotY = Math.round(targetRotY / 90) * 90;
-    }
-
-    resetIdleTimer();
-}
-
-scene.addEventListener('mousedown', onStart);
-window.addEventListener('mousemove', onMove);
-window.addEventListener('mouseup', onEnd);
-
-scene.addEventListener('touchstart', onStart, { passive: true });
-window.addEventListener('touchmove', onMove, { passive: true });
-window.addEventListener('touchend', onEnd);
-
-let wheelCooling = false;
-scene.addEventListener('wheel', (e) => {
-    e.preventDefault();
-    if (wheelCooling) return;
-
-    clearTimeout(idleTimer);
-    isAutoRotating = false;
-
-    if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
-        targetRotX = 0;
-        targetRotY -= e.deltaX > 0 ? 90 : -90;
-    } else {
-        targetRotY = 0;
-        targetRotX += e.deltaY > 0 ? 90 : -90;
-    }
-
-    wheelCooling = true;
-    setTimeout(() => { wheelCooling = false; }, 300);
-
-    resetIdleTimer();
-}, { passive: false });
-
-document.querySelectorAll('.face').forEach(face => {
-    face.addEventListener('click', () => {
-        if (isDraggedFar) return;
-
-        const img = face.querySelector('img');
-        if (img) {
-            modalVideo.style.display = 'none';
-            modalVideo.pause();
-            
-            modalImg.src = img.src;
-            modalImg.style.display = 'block';
-            modal.classList.add('show');
-            clearTimeout(idleTimer);
-            isAutoRotating = false;
-        }
-    });
-});
-
-function closeModal() {
-    modal.classList.remove('show');
-    if (modalVideo) {
-        modalVideo.pause();
-        modalVideo.currentTime = 0;
-    }
-
-    if (typeof mainSwiper !== 'undefined' && mainSwiper.slides) {
-        const activeSlide = mainSwiper.slides[mainSwiper.activeIndex];
-        if (activeSlide) {
-            const activeVideo = activeSlide.querySelector('video');
-            if (activeVideo) {
-                activeVideo.muted = true;
-                
-                const btnImg = activeSlide.querySelector('.mute-btn img');
-                if (btnImg) {
-                    btnImg.src = 'common/images/icon/spkoff.png';
-                }
-
-                activeVideo.play().catch(err => console.warn("動画再生エラー:", err));
-            }
-        }
-    }
-    resetIdleTimer();
-}
-
-modalClose.addEventListener('click', closeModal);
-modal.addEventListener('click', (e) => {
-    if (e.target === modal) closeModal();
-});
-
-
-
-
-// --------------------------------------------------
-// プロフィール & スワイパー制御
-// --------------------------------------------------
-function calculateAge(year, month, day) {
-    if (!year || !month || !day) return "";
-    const today = new Date();
-    const birthDate = new Date(year, month - 1, day);
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
-    }
-    return age;
-}
-
-const birthDates = [
-    [2002, 2, 18], // 足袋井 海月
-    [1989, 3, 28], // 桑田 裕介
-    [1996, 1, 30], // 樋口 拓馬
-    [1999, 9, 20], // 橘 星音
-    null           
-];
-
-const descriptions = [
-`
-<div class='slide-title' style='text-align:center'>俳優<br>足袋井 海月</div>
-<div class='slide-title2' style='text-align:center'>Mitsuki Tabii</div>
-<div style='text-align:center; margin-top:8px;'>
-</div><br>
-<div class='slide-title1'>生年月日:2002年2月18日(<span id="my-age"></span>歳)<br>血液型：AB型<br>出身地：広島県<br>MBTI：ENFP<br>好きな食べ物：数の子</div><br>
-<a href='https://www.instagram.com/2tabii_mitsuki18/?hl=ja' target='_blank' rel='noopener noreferrer' style='color:#E4405F; text-decoration:none; display:inline-flex; align-items:center; gap:4px; display: block; text-align: center;'>
-    <img src='common/images/instagram.png' alt='Instagram' style='width:50px;'>
-</a>
-    `,
-    `
-<div class='slide-title' style='text-align:center'>俳優<br>桑田 裕介</div>
-<div class='slide-title2' style='text-align:center'>Yusuke Kuwata</div>
-<div style='text-align:center; margin-top:8px;'>
-</div><br>
-<div class='slide-title1'>生年月日:1989年3月28日(<span id="my-age"></span>歳)<br>血液型：O型<br>出身地：大阪府<br>MBTI：ESFP-A<br>好きな食べ物：しめ鯖</div><br>
-<a href='https://www.instagram.com/yusuke_kuwata/?hl=ja' target='_blank' rel='noopener noreferrer' style='color:#E4405F; text-decoration:none; display:inline-flex; align-items:center; gap:4px; display: block; text-align: center;'>
-    <img src='common/images/instagram.png' alt='Instagram' style='width:50px;'>
-</a>
-    `,
-    `
-<div class='slide-title' style='text-align:center'>俳優<br>樋口 拓馬</div>
-<div class='slide-title2' style='text-align:center'>Takuma Higuchi</div>
-<div style='text-align:center; margin-top:8px;'>
-</div><br>
-<div class='slide-title1'>生年月日:1996年1月30日(<span id="my-age"></span>歳)<br>血液型：B型<br>出身地：京都府<br>MBTI：ENFJ<br>好きな食べ物：馬刺し</div><br>
-<a href='https://www.instagram.com/higutakumin/?hl=ja' target='_blank' rel='noopener noreferrer' style='color:#E4405F; text-decoration:none; display:inline-flex; align-items:center; gap:4px; display: block; text-align: center;'>
-    <img src='common/images/instagram.png' alt='Instagram' style='width:50px;'>
-</a>
-    `,
-    `
-<div class='slide-title' style='text-align:center'>俳優<br>橘 星音</div>
-<div class='slide-title2' style='text-align:center'>Seito Tachibana</div>
-<div style='text-align:center; margin-top:8px;'>
-</div><br>
-<div class='slide-title1'>生年月日:1999年9月20日(<span id="my-age"></span>歳)<br>血液型：O型<br>出身地：京都府<br>MBTI：ENTJ<br>好きな食べ物：寿司</div><br>
-<a href='https://www.instagram.com/seeeei_toooo920/?hl=ja' target='_blank' rel='noopener noreferrer' style='color:#E4405F; text-decoration:none; display:inline-flex; align-items:center; gap:4px; display: block; text-align: center;'>
-    <img src='common/images/instagram.png' alt='Instagram' style='width:50px;'>
-</a>
-    `,
-    `
-<div class='slide-title' style='text-align:center'>カメラマン<br>アヤノ アキラ</div>
-<div class='slide-title2' style='text-align:center'>Akira Ayano</div>
-<div style='text-align:center; margin-top:8px;'>
-</div><br>
-<div class='slide-title1'>生年月日:マカロン〇個分<br>血液型：A型<br>出身地：和歌山県<br>MBTI：INTJ<br>好きな食べ物：チョコレート</div><br>
-<a href='https://www.instagram.com/infotokyoactor/?hl=ja' target='_blank' rel='noopener noreferrer' style='color:#E4405F; text-decoration:none; display:inline-flex; align-items:center; gap:4px; display: block; text-align: center;'>
-    <img src='common/images/instagram.png' alt='Instagram' style='width:50px; height:30px;'>
-</a>
-
-    `
-];
-
-const descEl = document.getElementById('slide-description');
-
-function renderContent(index) {
-    if (!descEl) return;
-    descEl.innerHTML = descriptions[index] || "";
-    
-    const ageSpan = document.getElementById('my-age');
-    if (ageSpan && birthDates[index]) {
-        const [y, m, d] = birthDates[index];
-        ageSpan.textContent = calculateAge(y, m, d);
-    }
-}
-
-function updateDescription(index) {
-    if (!descEl) return;
-    descEl.classList.add('fade-out');
-    setTimeout(() => {
-        renderContent(index);
-        descEl.classList.remove('fade-out');
-    }, 300);
-}
-
-    // メインSwiper
-    const swiperVideos = document.querySelectorAll('.mainSwiper video');
-    const mainSwiper = new Swiper(".mainSwiper", {
-        effect: "coverflow",
-        grabCursor: true,
-        centeredSlides: true,
-        slidesPerView: "auto",
-        loop: false, 
-        initialSlide: 2,
-        spaceBetween: -50,
-        coverflowEffect: {
-            rotate: 40,
-            stretch: 0,
-            depth: 700,
-            modifier: 1,
-            slideShadows: true,
-            scale: 0.8,
-        },
-        on: {
-            init: function () {
-                if (descEl) {
-                    descEl.innerHTML = descriptions[this.initialSlide] || descriptions[0];
-                }
-            },
-            slideChange: function () {
-                swiperVideos.forEach(v => {
-                    v.muted = true;
-                    v.pause();
-                    v.currentTime = 0;
-                    const btn = v.closest('.swiper-slide').querySelector('.mute-btn img');
-                    if (btn) btn.src = 'common/images/icon/spkoff.png';
-                });
-                const activeSlide = this.slides[this.activeIndex];
-                const activeVideo = activeSlide.querySelector('video');
-                if (activeVideo) {
-                    activeVideo.play().catch(e => console.warn("再生中断:", e));
-                }
-                updateDescription(this.activeIndex);
-            }
-        }
-    });
-
-document.querySelectorAll('.mainSwiper .swiper-slide').forEach(slide => {
-    slide.addEventListener('click', (e) => {
-        if (e.target.closest('.mute-btn')) return;
-
-        const video = slide.querySelector('video');
-        if (video && modalVideo) {
-            video.pause();
-
-            modalImg.style.display = 'none';
-
-            modalVideo.src = video.currentSrc || video.src;
-            modalVideo.style.display = 'block';
-            
-            modal.classList.add('show');
-            
-            modalVideo.muted = false;
-            modalVideo.play().catch(err => console.warn("動画再生エラー:", err));
-
-            clearTimeout(idleTimer);
-            isAutoRotating = false;
-        }
-    });
-});
-
-</script>
-
+        // Set timer for auto redirection
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(redirectToTarget, REDIRECT_DELAY_MS);
+        });
+    </script>
 </body>
 </html>
